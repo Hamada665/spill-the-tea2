@@ -173,29 +173,7 @@
         <p style="font-family: 'Poppins'; font-weight: 300; font-size: 0.8rem; color: var(--text-muted);">DIRECTIVES D'ACHAT : COMMANDE EXPÉDIÉE SOUS 24H. PAIEMENT À LA LIVRAISON.</p>
     </footer>
 
-    <script>
-        // Gestion du thème
-        const themeBtn = document.getElementById('theme-switch');
-        const htmlElement = document.documentElement;
-        themeBtn.addEventListener('click', () => {
-            const isDark = htmlElement.getAttribute('data-theme') === 'dark';
-            htmlElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
-            themeBtn.innerText = isDark ? "🌙 Sombre" : "☀️ Clair";
-        });
-
-        // REVEAL SYSTEM : Pour faire apparaître les produits
-        document.addEventListener('DOMContentLoaded', () => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-        });
-    </script>
+   <script src="script.js"></script>
 
     <div id="box-modal" class="modal">
     <div class="modal-content">
