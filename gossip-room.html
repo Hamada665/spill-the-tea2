@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gossip Room | Spill The Tea</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Styles spécifiques pour le puzzle */
+        .gossip-header {
+            text-align: center;
+            padding: 120px 10% 40px;
+        }
+        .gossip-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-gold);
+        }
+        .gossip-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .puzzle-grid {
+            padding: 60px 0;
+            display: grid;
+            grid-template-columns: repeat(3, 190px); /* Ajusté pour l'imbrication */
+            grid-template-rows: repeat(3, 190px);
+            gap: 0; /* Important pour l'illusion d'emboîtement */
+            justify-content: center;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1; /* Pour que les pièces soient au-dessus du fond */
+        }
+        
+        .puzzle-piece {
+            width: 190px;
+            height: 190px;
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            transition: var(--transition-luxe);
+            cursor: pointer;
+            position: relative;
+            transform-style: preserve-3d;
+            perspective: 1000px; /* Pour l'effet 3D */
+            /* Exemple de clip-path pour une forme de pièce de puzzle, à affiner */
+            clip-path: polygon(0% 25%, 25% 25%, 25% 0%, 75% 0%, 75% 25%, 100% 25%, 100% 75%, 75% 75%, 75% 100%, 25% 100%, 25% 75%, 0% 75%);
+        }
+
+        .puzzle-piece.revealed {
+            border-color: var(--accent-gold-light);
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+        }
+
+        .piece-front, .piece-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backface-visibility: hidden; /* Cache l'arrière-face par défaut */
+            transform-style: preserve-3d;
+            border-radius: 0; /* Les pièces n'ont pas de bords arrondis */
+            overflow: hidden; /* Pour que le clip-path fonctionne bien */
+        }
+
+        .piece-front {
+            background-color: var(--secondary-bg); /* Couleur du puzzle non révélé */
+            color: var(--accent-gold);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            opacity: 0.8;
+            padding: 10px;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .piece-back {
+            background-color: var(--accent-gold); /* Couleur du puzzle révélé */
+            color: var(--primary-bg);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            text-align: center;
+            padding: 15px;
+            transform: rotateY(180deg); /* La face arrière est déjà tournée */
+            z-index: 1;
+        }
+
+        .puzzle-piece .piece-inner {
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .puzzle-piece.revealed .piece-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .secret-reveal-box {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--card-radius);
+            padding: 40px;
+            margin: 80px auto 60px auto;
+            max-width: 800px;
+            text-align: center;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .secret-reveal-box h2 {
+            color: var(--accent-gold);
+            margin-bottom: 25px;
+            font-size: 2.2rem;
+        }
+        .secret-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--text-main);
+            min-height: 120px; /* Pour garder l'espace même si vide */
+        }
+        .typed-text::after {
+            content: '|';
+            display: inline-block;
+            animation: blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--accent-gold); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="header-luxe">
+        <div class="logo luxury-serif">Spill The Tea</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="boutique.html">Boutique</a></li>
+                <li><a href="parfums.html">Parfums</a></li>
+                <li><a href="gossip-room.html">Gossip Room</a></li>
+                <li><a href="winners.html">Gagnants</a></li>
+            </ul>
+        </nav>
+        <button id="theme-switch" class="btn-luxe" style="padding: 8px 20px; font-size: 0.7rem;">🌓 Mode</button>
+    </header>
+
+    <main>
+        <section class="gossip-header">
+            <h1>La Chambre des Secrets</h1>
+            <p>Chaque indice est un murmure du passé. Assemblez les fragments, déchiffrez les mystères pour révéler la Vérité cachée au-delà du voile.</p>
+        </section>
+
+        <section class="puzzle-area">
+            <div class="puzzle-grid">
+                </div>
+            
+            <div class="secret-reveal-box">
+                <h2 class="luxury-serif">Le Secret Révélé</h2>
+                <p id="secret-text-display" class="secret-text typed-text"></p>
+            </div>
+        </section>
+    </main>
+
+    <a href="https://wa.me/212643668382" class="whatsapp-float" target="_blank">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.503-2.961-2.617-.087-.114-.708-.941-.708-1.792s.448-1.27.607-1.446c.159-.176.347-.22.463-.22s.231.001.332.005c.109.004.258-.041.402.304.144.347.491 1.2.534 1.289.043.089.072.191.014.304-.058.114-.087.191-.173.29-.087.099-.188.22-.268.297-.08.077-.164.159-.071.32.094.16.416.689.893 1.112.613.544 1.13.713 1.291.791.16.078.254.065.35-.045.094-.109.405-.471.514-.63.107-.16.216-.137.363-.083.144.054.915.432 1.073.51.159.078.265.117.304.183.039.067.039.387-.105.792z"/>
+        </svg>
+    </a>
+
+    <footer class="luxury-serif">
+        <div class="footer-logo">Spill The Tea</div>
+        <p style="font-family: 'Poppins'; font-weight: 300; font-size: 0.8rem; color: var(--text-muted);">
+            © 2026 DROITS RÉSERVÉS. L'ABUS DE MYSTÈRE EST RECOMMANDÉ.
+        </p>
+    </footer>
+
+    <script>
+        // JS pour le switch de thème (répété pour l'autonomie de chaque page)
+        const themeBtn = document.getElementById('theme-switch');
+        const htmlElement = document.documentElement;
+        themeBtn.addEventListener('click', () => {
+            const isDark = htmlElement.getAttribute('data-theme') === 'dark';
+            htmlElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            themeBtn.innerText = isDark ? "🌙 Sombre" : "☀️ Clair";
+        });
+
+        // JS pour la logique du puzzle
+        const puzzleData = [
+            { id: 1, initial: "Le Testament...", revealed: "Le testament du vieux maître, scellé sous la cire rouge, parlait d'un trésor enfoui non pas en or, mais en parchemins anciens, cachés par une main habile." },
+            { id: 2, initial: "L'Ombre de...", revealed: "L'ombre de la Rose Noire, une société secrète disparue, resurgit dans les récits. Ses membres murmuraient une prophétie funeste." },
+            { id: 3, initial: "La Clé d'Or...", revealed: "La clé d'or, finement ciselée d'un serpent enlacé, n'ouvrait aucune serrure connue, mais résonnait étrangement au contact de l'eau sacrée d'un lac oublié." },
+            { id: 4, initial: "Sous l'Autel...", revealed: "Sous l'autel brisé de l'ancienne chapelle, un passage secret fut découvert. Il menait à une chambre voûtée, imprégnée de l'odeur de jasmin et de secrets." },
+            { id: 5, initial: "Les Étoiles...", revealed: "Les étoiles, dans leur danse éternelle, formaient une carte céleste unique, visible seulement à travers le prisme d'un miroir d'obsidienne polie à minuit." },
+            { id: 6, initial: "Le Chant...", revealed: "Le chant mélancolique des sirènes, une mélodie perdue, était en réalité un code mnémotechnique, révélant la séquence des constellations menant au vrai chemin." },
+            { id: 7, initial: "La Dague...", revealed: "La dague de cérémonie, rouillée et oubliée, portait une inscription invisible, ne se manifestant que sous le clair de lune d'une éclipse totale." },
+            { id: 8, initial: "Le Dernier...", revealed: "Le dernier souffle du tyran, avant de s'effondrer, fut un mot unique, un anagramme complexe de son véritable héritage, dissimulé dans un poème." },
+            { id: 9, initial: "L'Écho du...", revealed: "L'écho du rire d'un enfant, entendu dans les catacombes, n'était pas un fantôme, mais le son des clochettes d'argent d'un carillon dissimulé, annonçant la fin du temps." }
+        ];
+
+        const puzzleGrid = document.querySelector('.puzzle-grid');
+        const secretTextDisplay = document.getElementById('secret-text-display');
+        let revealedPieces = new Set();
+        let currentSecret = "";
+        let typingIndex = 0;
+        let typingTimeout;
+
+        function renderPuzzle() {
+            puzzleGrid.innerHTML = '';
+            puzzleData.forEach(piece => {
+                const puzzleDiv = document.createElement('div');
+                puzzleDiv.classList.add('puzzle-piece');
+                puzzleDiv.dataset.id = piece.id;
+
+                if (revealedPieces.has(piece.id)) {
+                    puzzleDiv.classList.add('revealed');
+                }
+
+                puzzleDiv.innerHTML = `
+                    <div class="piece-inner">
+                        <div class="piece-front">${piece.initial}</div>
+                        <div class="piece-back">${piece.revealed}</div>
+                    </div>
+                `;
+
+                puzzleDiv.addEventListener('click', () => revealPiece(piece.id));
+                puzzleGrid.appendChild(puzzleDiv);
+            });
+        }
+
+        function revealPiece(id) {
+            if (!revealedPieces.has(id)) {
+                revealedPieces.add(id);
+                renderPuzzle(); // Re-render pour appliquer la classe revealed
+
+                // Construire le secret progressivement
+                currentSecret = Array.from(revealedPieces)
+                                     .sort((a, b) => a - b)
+                                     .map(id => puzzleData.find(p => p.id === id).revealed)
+                                     .join(' ');
+                
+                // Effet machine à écrire
+                clearTimeout(typingTimeout);
+                secretTextDisplay.textContent = '';
+                typingIndex = 0;
+                typeSecretText();
+            }
+        }
+
+        function typeSecretText() {
+            if (typingIndex < currentSecret.length) {
+                secretTextDisplay.textContent += currentSecret.charAt(typingIndex);
+                typingIndex++;
+                typingTimeout = setTimeout(typeSecretText, 30); // Vitesse de frappe
+            }
+        }
+
+        // Initialisation du puzzle
+        renderPuzzle();
+    </script>
+
+</body>
+</html>
