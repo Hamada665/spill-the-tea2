@@ -286,7 +286,7 @@ footer {
 }
 
 /* ==========================================================================
-   8. LOGO SMART ADAPTATION (Gold Fix)
+   8. LOGO SMART ADAPTATION (Vivid Gold Version)
    ========================================================================== */
 
 .logo-img {
@@ -294,21 +294,20 @@ footer {
     width: auto;
     transition: var(--transition-luxe);
     display: block;
-    /* Ce filtre transforme le noir en blanc ET protège le doré */
-    filter: invert(1) sepia(1) saturate(5) hue-rotate(340deg) brightness(2);
+    /* This combo turns everything white, then tints it gold-bronze */
+    filter: brightness(0) invert(1) sepia(1) saturate(10) hue-rotate(10deg) brightness(0.9);
 }
 
-/* --- Thème Clair --- */
+/* --- Light Theme (Original) --- */
 [data-theme="light"] .logo-img {
-    /* On retire tous les filtres pour retrouver le logo original (noir et or) */
-    filter: none;
+    filter: none; /* Back to original Black & Gold */
 }
 
-/* --- Effet au Survol --- */
+/* --- Hover Effect --- */
 .logo-img:hover {
     transform: scale(1.05);
-    /* Version survolée pour le mode sombre */
-    filter: invert(1) sepia(1) saturate(7) hue-rotate(340deg) brightness(2.5) drop-shadow(0 0 10px rgba(212, 175, 110, 0.4));
+    /* Extra glow for dark mode */
+    filter: brightness(0) invert(1) sepia(1) saturate(10) hue-rotate(10deg) brightness(1.2) drop-shadow(0 0 8px rgba(212, 175, 110, 0.6));
 }
 
 [data-theme="light"] .logo-img:hover {
