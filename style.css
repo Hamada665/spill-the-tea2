@@ -41,20 +41,27 @@
 }
 
 /* ==========================================================================
-   GÉRER L'IMAGE DE FOND (Hero Overlay Adaptatif)
+   GÉRER L'IMAGE DE FOND (Hero Overlay & Parallaxe)
    ========================================================================== */
 
-/* Mode Sombre (Défaut) : On garde le voile bordeaux profond */
 .hero-bg {
+    /* --- AJOUT DES PROPRIÉTÉS DE MOUVEMENT ICI --- */
+    height: 125% !important; /* On l'agrandit pour le mouvement */
+    top: -12.5%;             /* On la centre */
+    position: absolute;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+    /* ------------------------------------------- */
+    
     background: linear-gradient(rgba(58, 14, 19, 0.75), rgba(58, 14, 19, 0.8)) !important;
     transition: var(--transition-luxe);
 }
 
-/* Mode Clair : On remplace par un voile blanc crème pour que le bordeaux soit lisible */
+/* Mode Clair : On remplace par un voile blanc crème */
 [data-theme="light"] .hero-bg {
     background: linear-gradient(rgba(244, 238, 232, 0.85), rgba(244, 238, 232, 0.75)) !important;
 }
-
 /* ==========================================================================
    2. RESET & BASE STYLES
    ========================================================================== */
