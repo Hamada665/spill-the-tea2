@@ -39,3 +39,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // On cible tous les éléments à révéler
     document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 });
+
+window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    const heroBg = document.querySelector('.hero-bg');
+    if (heroBg) {
+        // L'image bouge un peu plus lentement pour créer la profondeur
+        heroBg.style.transform = `translateY(${scrolled * 0.4}px)`;
+    }
+});
