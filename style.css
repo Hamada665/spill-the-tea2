@@ -1,0 +1,271 @@
+/* * PROJECT: Spill The Tea - Luxury Tea & Mystery
+ * AUTHOR: Senior UI/UX Designer / Full-Stack Developer
+ * VERSION: 1.0.0
+ * DESCRIPTION: Premium CSS Architecture with Dark/Light capabilities and Puzzle Engineering.
+ */
+
+/* ==========================================================================
+   1. VARIABLES & DESIGN TOKENS (Système de Thèmes)
+   ========================================================================== */
+
+:root {
+    /* --- DARK THEME (Default - Deep Burgundy & Gold) --- */
+    --primary-bg: #3a0e13;
+    --secondary-bg: #22080b;
+    --accent-gold: #d4af6e;
+    --accent-gold-light: #eac78a;
+    --text-main: #f8f1e5;
+    --text-muted: rgba(248, 241, 229, 0.7);
+    --border-color: rgba(212, 175, 110, 0.3);
+    --glass-bg: rgba(34, 8, 11, 0.8);
+    
+    /* --- SPACING & RADIUS --- */
+    --section-padding: 100px 10%;
+    --card-radius: 12px;
+    --btn-radius: 50px;
+    
+    /* --- ANIMATIONS --- */
+    --transition-luxe: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="light"] {
+    /* --- LIGHT THEME (Sand & Bronze) --- */
+    --primary-bg: #f4eee8;
+    --secondary-bg: #ffffff;
+    --accent-gold: #a67c52;
+    --accent-gold-light: #c5a07d;
+    --text-main: #3a0e13;
+    --text-muted: rgba(58, 14, 19, 0.7);
+    --border-color: rgba(166, 124, 82, 0.2);
+    --glass-bg: rgba(244, 238, 232, 0.8);
+}
+
+/* ==========================================================================
+   2. RESET & BASE STYLES
+   ========================================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--primary-bg);
+    color: var(--text-main);
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    transition: var(--transition-luxe);
+    overflow-x: hidden;
+}
+
+h1, h2, h3, .luxury-serif {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* ==========================================================================
+   3. NAVIGATION (Sticky & Glassmorphism)
+   ========================================================================== */
+
+.header-luxe {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 1.5rem 5%;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: var(--transition-luxe);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: var(--transition-luxe);
+}
+
+.nav-links a:hover {
+    color: var(--accent-gold);
+}
+
+/* ==========================================================================
+   4. BOUTONS & MICRO-INTERACTIONS
+   ========================================================================== */
+
+.btn-luxe {
+    display: inline-block;
+    padding: 14px 35px;
+    background-color: var(--accent-gold);
+    color: var(--primary-bg);
+    text-decoration: none;
+    border-radius: var(--btn-radius);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+    border: 1px solid var(--accent-gold);
+    transition: var(--transition-luxe);
+    cursor: pointer;
+}
+
+.btn-luxe:hover {
+    background-color: transparent;
+    color: var(--accent-gold);
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 999;
+    background: var(--accent-gold);
+    color: var(--primary-bg);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    transition: var(--transition-luxe);
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1) rotate(10deg);
+}
+
+/* ==========================================================================
+   5. INGÉNIERIE DU PUZZLE (Gossip Room)
+   ========================================================================== */
+
+.puzzle-container {
+    display: grid;
+    grid-template-columns: repeat(3, 200px);
+    gap: 0; /* Les pièces s'imbriquent */
+    justify-content: center;
+    perspective: 1000px;
+}
+
+/* Formes de puzzle via clip-path */
+.puzzle-piece {
+    width: 210px; /* Surplomb pour l'imbrication */
+    height: 210px;
+    cursor: pointer;
+    position: relative;
+    transition: var(--transition-luxe);
+    background: var(--secondary-bg);
+    border: 0.5px solid var(--border-color);
+    /* Exemple de forme avec encoche */
+    clip-path: polygon(0% 20%, 20% 20%, 20% 0%, 80% 0%, 80% 20%, 100% 20%, 100% 80%, 80% 80%, 80% 100%, 20% 100%, 20% 80%, 0% 80%);
+}
+
+.piece-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.puzzle-piece.revealed .piece-inner {
+    transform: rotateY(180deg);
+}
+
+.piece-front, .piece-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.piece-front {
+    color: var(--accent-gold);
+    font-weight: bold;
+    opacity: 0.8;
+}
+
+.piece-back {
+    background: var(--accent-gold);
+    color: var(--primary-bg);
+    transform: rotateY(180deg);
+    font-size: 0.8rem;
+}
+
+/* ==========================================================================
+   6. BOUTIQUE & GRILLE LUXE
+   ========================================================================== */
+
+.univers-section {
+    padding: var(--section-padding);
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.product-card {
+    background: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    padding: 2rem;
+    border-radius: var(--card-radius);
+    transition: var(--transition-luxe);
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--accent-gold);
+}
+
+.price-tag {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--accent-gold);
+    margin: 1rem 0;
+}
+
+/* ==========================================================================
+   7. FOOTER
+   ========================================================================== */
+
+footer {
+    padding: 60px 5%;
+    background: var(--secondary-bg);
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+}
+
+.footer-logo {
+    font-size: 2rem;
+    color: var(--accent-gold);
+    margin-bottom: 2rem;
+}
