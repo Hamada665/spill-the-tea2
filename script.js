@@ -136,15 +136,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
    // --- 5. LOGIQUE DU PANIER (LocalStorage) ---
 
-    // Fonction pour ajouter un thé au panier
+    // --- 5. LOGIQUE DU PANIER (LocalStorage + Badge) ---
+
+    // Fonction pour mettre à jour le petit chiffre sur l'icône
+    function updateBadge() {
+        const cart = JSON.parse(localStorage.getItem('stt_cart')) || [];
+        const badge = document.getElementById('cart-count');
+        if (badge) {
+            badge.innerText = cart.length;
+            // Animation de "pop" pour attirer l'œil
+            badge.style.transform = "scale(1.3)";
+            setTimeout(() => badge.style.transform = "scale(1)", 200);
+        }
+    }
+
+    // Nouvelle fonction d'ajout (sans alert)
     window.addToCart = function(name, price) {
         let cart = JSON.parse(localStorage.getItem('stt_cart')) || [];
         cart.push({ name, price });
         localStorage.setItem('stt_cart', JSON.stringify(cart));
         
-        // Petite notification élégante
-        alert(`${name} a été ajouté à votre collection.`);
+        // Mise à jour visuelle immédiate
+        updateBadge();
+
+        // Feedback visuel : l'icône du panier clignote en vert pour confirmer
+        const cartIcon = document.querySelector('.cart-icon-container');
+        if(cartIcon) {
+            cartIcon.style.backgroundColor = "#27ae60"; 
+            setTimeout(() => cartIcon.style.backgroundColor = "var(--accent-gold)", 600);
+        }
     };
+
+    // Charger le badge dès que la page s'affiche
+    updateBadge();
 
     // Si on est sur la page Panier, on affiche les articles
     const cartList = document.getElementById('cart-items-list');
