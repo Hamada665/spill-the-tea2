@@ -52,19 +52,19 @@
     width: 100%;
     z-index: -1;
     
-    /* ON UTILISE background-image POUR NE PAS ÉCRASER L'IMAGE DU HTML */
-    background-image: linear-gradient(rgba(58, 14, 19, 0.75), rgba(58, 14, 19, 0.8)) !important;
-    
-    /* On force l'image à bien se comporter */
-    background-size: cover;
-    background-position: center;
+    /* ON FORCE L'IMAGE ET LE VOILE ICI */
+    background-image: linear-gradient(rgba(58, 14, 19, 0.75), rgba(58, 14, 19, 0.8)), url('hero-bg1.png') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
     transition: var(--transition-luxe);
 }
 
 /* Mode Clair */
 [data-theme="light"] .hero-bg {
-    background-image: linear-gradient(rgba(244, 238, 232, 0.85), rgba(244, 238, 232, 0.75)) !important;
+    background-image: linear-gradient(rgba(244, 238, 232, 0.85), rgba(244, 238, 232, 0.75)), url('hero-bg1.png') !important;
 }
+
 /* ==========================================================================
    2. RESET & BASE STYLES
    ========================================================================== */
