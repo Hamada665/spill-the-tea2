@@ -329,3 +329,24 @@ footer {
 /* On ajoute un petit délai pour le sous-titre et les boutons */
 .delay-1 { animation-delay: 0.3s; opacity: 0; }
 .delay-2 { animation-delay: 0.6s; opacity: 0; }
+
+/* --- SCROLL REVEAL SYSTEM --- */
+
+/* L'état initial : invisible et légèrement plus bas */
+.reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: blur(5px);
+}
+
+/* L'état quand l'élément est "actif" au scroll */
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+}
+
+/* Optionnel : faire apparaître les étapes 01, 02, 03 l'une après l'autre */
+.step:nth-child(2) { transition-delay: 0.2s; }
+.step:nth-child(3) { transition-delay: 0.4s; }
