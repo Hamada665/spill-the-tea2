@@ -286,32 +286,33 @@ footer {
 }
 
 /* ==========================================================================
-   8. LOGO SMART ADAPTATION
+   8. LOGO SMART ADAPTATION (Gold Fix)
    ========================================================================== */
 
 .logo-img {
-    height: 75px; /* Taille optimale */
+    height: 75px; 
     width: auto;
     transition: var(--transition-luxe);
     display: block;
-    /* On applique un filtre par défaut pour le thème Dark (Bordeaux) */
-    filter: invert(1) brightness(2); 
+    /* Ce filtre transforme le noir en blanc ET protège le doré */
+    filter: invert(1) sepia(1) saturate(5) hue-rotate(340deg) brightness(2);
 }
 
 /* --- Thème Clair --- */
-/* Quand l'utilisateur passe en mode clair, on remet le texte en noir */
 [data-theme="light"] .logo-img {
-    filter: invert(0) brightness(1);
+    /* On retire tous les filtres pour retrouver le logo original (noir et or) */
+    filter: none;
 }
 
 /* --- Effet au Survol --- */
 .logo-img:hover {
     transform: scale(1.05);
-    filter: invert(1) brightness(2.5) drop-shadow(0 0 10px rgba(212, 175, 110, 0.4));
+    /* Version survolée pour le mode sombre */
+    filter: invert(1) sepia(1) saturate(7) hue-rotate(340deg) brightness(2.5) drop-shadow(0 0 10px rgba(212, 175, 110, 0.4));
 }
 
 [data-theme="light"] .logo-img:hover {
-    filter: invert(0) brightness(1.1) drop-shadow(0 0 10px rgba(166, 124, 82, 0.2));
+    filter: brightness(1.1) drop-shadow(0 0 10px rgba(166, 124, 82, 0.2));
 }
 
 /* --- Responsive --- */
