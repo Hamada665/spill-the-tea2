@@ -209,4 +209,32 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn-checkout-final')?.addEventListener('click', () => {
         document.getElementById('payment-modal').style.display = 'block';
     });
+
+   // --- 6. LOGIQUE DE L'HERBIER (Page Parfums) ---
+const teaData = {
+    hibiscus: {
+        title: "Midnight Hibiscus",
+        history: "Né sous les lunes rouges d'Afrique, ce thé était utilisé pour sceller les pactes secrets entre les clans.",
+        benefits: "Riche en antioxydants, il apaise le cœur et purifie l'esprit."
+    },
+    blueberry: {
+        title: "Royal Blueberry",
+        history: "La légende raconte que ces baies étaient réservées à la cour impériale pour stimuler la vision nocturne.",
+        benefits: "Soutient la mémoire et offre une sensation de satiété élégante."
+    },
+    // Ajoute les autres thés ici sur le même modèle...
+};
+
+window.openTea = function(key) {
+    const tea = teaData[key];
+    if(!tea) return;
+    document.getElementById('modal-title').innerText = tea.title;
+    document.getElementById('modal-history').innerText = tea.history;
+    document.getElementById('modal-benefits').innerText = tea.benefits;
+    document.getElementById('tea-modal').style.display = 'flex';
+};
+
+window.closeTea = function() {
+    document.getElementById('tea-modal').style.display = 'none';
+};
 });
