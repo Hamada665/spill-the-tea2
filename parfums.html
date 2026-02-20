@@ -70,52 +70,87 @@
 </header>
 
     <main style="padding-top: 120px;">
-        <section style="text-align: center; padding: 60px 10%;">
-            <h1 class="luxury-serif" style="font-size: 3.5rem; margin-bottom: 20px;">L'Herbier des Secrets</h1>
-            <p style="color: var(--text-muted); max-width: 700px; margin: 0 auto;">Chaque infusion est une archive, chaque gorgée une confidence. Explorez nos parfums signature et découvrez ce qu'ils ont à vous dire.</p>
-        </section>
+    <section style="text-align: center; padding: 60px 10%;">
+        <h1 class="luxury-serif" style="font-size: 3.5rem; margin-bottom: 20px;">L'Herbier des Secrets</h1>
+        <p style="color: var(--text-muted); max-width: 700px; margin: 0 auto;">Chaque infusion est une archive, chaque gorgée une confidence.</p>
+    </section>
 
-        <section style="padding: 0 10% 100px;">
-            <div class="product-grid" id="tea-gallery">
-                <div class="product-card" onclick="openTea('hibiscus')">
-                    <div style="height: 300px; background: url('https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80') center/cover; border-radius: 8px; margin-bottom: 20px;"></div>
-                    <h3 class="luxury-serif">Midnight Hibiscus</h3>
-                    <p style="color: var(--accent-gold); font-size: 0.8rem; letter-spacing: 1px;">MYSTÉRIEUX & FLORAL</p>
-                </div>
-
-                <div class="product-card" onclick="openTea('blueberry')">
-                    <div style="height: 300px; background: url('https://images.unsplash.com/photo-1497534446932-c946e7316ba1?auto=format&fit=crop&w=800&q=80') center/cover; border-radius: 8px; margin-bottom: 20px;"></div>
-                    <h3 class="luxury-serif">Royal Blueberry</h3>
-                    <p style="color: var(--accent-gold); font-size: 0.8rem; letter-spacing: 1px;">RICHE & FRUITÉ</p>
-                </div>
-
-                <div class="product-card" onclick="openTea('jasmine')">
-                    <div style="height: 300px; background: url('https://images.unsplash.com/photo-1594631252845-29fc458695d1?auto=format&fit=crop&w=800&q=80') center/cover; border-radius: 8px; margin-bottom: 20px;"></div>
-                    <h3 class="luxury-serif">Golden Jasmine</h3>
-                    <p style="color: var(--accent-gold); font-size: 0.8rem; letter-spacing: 1px;">ÉCLATANT & APAISANT</p>
-                </div>
-
-                <div class="product-card" onclick="openTea('mint')">
-                    <div style="height: 300px; background: url('https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?auto=format&fit=crop&w=800&q=80') center/cover; border-radius: 8px; margin-bottom: 20px;"></div>
-                    <h3 class="luxury-serif">Velvet Mint</h3>
-                    <p style="color: var(--accent-gold); font-size: 0.8rem; letter-spacing: 1px;">FRAIS & ARISTOCRATIQUE</p>
-                </div>
-
-                <div class="product-card" onclick="openTea('blacktea')">
-                    <div style="height: 300px; background: url('https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&w=800&q=80') center/cover; border-radius: 8px; margin-bottom: 20px;"></div>
-                    <h3 class="luxury-serif">Imperial Black Tea</h3>
-                    <p style="color: var(--accent-gold); font-size: 0.8rem; letter-spacing: 1px;">PUISSANT & SOMBRE</p>
-                </div>
-
-                <div class="product-card" onclick="openTea('rooibos')">
-                    <div style="height: 300px; background: url('https://images.unsplash.com/photo-1558160074-4d7d8bdf4256?auto=format&fit=crop&w=800&q=80') center/cover; border-radius: 8px; margin-bottom: 20px;"></div>
-                    <h3 class="luxury-serif">Mystic Rooibos</h3>
-                    <p style="color: var(--accent-gold); font-size: 0.8rem; letter-spacing: 1px;">ÉPICÉ & CHALEUREUX</p>
-                </div>
+    <section style="padding: 0 10% 100px;">
+        <div class="product-grid" id="tea-gallery">
+            <div class="product-card" onclick="openTea('oolong')">
+                <img src="Eclipse Oolong Sachet de Thé.png" alt="Oolong" class="product-img">
+                <h3 class="luxury-serif">Eclipse Oolong</h3>
+                <p class="price-tag">VOIR LE SECRET</p>
             </div>
-        </section>
-    </main>
 
+            <div class="product-card" onclick="openTea('chai')">
+                <img src="Golden Chai Sachet de thé.png" alt="Chai" class="product-img">
+                <h3 class="luxury-serif">Golden Chai</h3>
+                <p class="price-tag">VOIR LE SECRET</p>
+            </div>
+
+            <div class="product-card" onclick="openTea('jasmine')">
+                <img src="Golden Jasmine Sachet de Thé.png" alt="Jasmine" class="product-img">
+                <h3 class="luxury-serif">Golden Jasmine</h3>
+                <p class="price-tag">VOIR LE SECRET</p>
+            </div>
+
+            <div class="product-card" onclick="openTea('blacktea')">
+                <img src="Imperial Black Tea Sachet de Thé.png" alt="Black Tea" class="product-img">
+                <h3 class="luxury-serif">Imperial Black Tea</h3>
+                <p class="price-tag">VOIR LE SECRET</p>
+            </div>
+
+            <div class="product-card" onclick="openTea('midjasmine')">
+                <img src="Midnight Jasmine Sachet de Thé.png" alt="Midnight Jasmine" class="product-img">
+                <h3 class="luxury-serif">Midnight Jasmine</h3>
+                <p class="price-tag">VOIR LE SECRET</p>
+            </div>
+
+            <div class="product-card" onclick="openTea('rooibos')">
+                <img src="Mystic Rooibos Sachet de Thé.png" alt="Rooibos" class="product-img">
+                <h3 class="luxury-serif">Mystic Rooibos</h3>
+                <p class="price-tag">VOIR LE SECRET</p>
+            </div>
+
+            <div class="product-card" onclick="openTea('blueberry')">
+                <img src="Royal Blueberry Sachet de Thé.png" alt="Blueberry" class="product-img">
+                <h3 class="luxury-serif">Royal Blueberry</h3>
+                <p class="price-tag">VOIR LE SECRET</p>
+            </div>
+
+            <div class="product-card" onclick="openTea('chamomile')">
+                <img src="Sacred Chamomile.png" alt="Chamomile" class="product-img">
+                <h3 class="luxury-serif">Sacred Chamomile</h3>
+                <p class="price-tag">VOIR LE SECRET</p>
+            </div>
+
+            <div class="product-card" onclick="openTea('mint')">
+                <img src="Velvet Mint Sachet de Thé.png" alt="Mint" class="product-img">
+                <h3 class="luxury-serif">Velvet Mint</h3>
+                <p class="price-tag">VOIR LE SECRET</p>
+            </div>
+
+            <div class="product-card" onclick="openTea('jade')">
+                <img src="Verdant Jade Sachet de Thé.png" alt="Jade" class="product-img">
+                <h3 class="luxury-serif">Verdant Jade</h3>
+                <p class="price-tag">VOIR LE SECRET</p>
+            </div>
+
+            <div class="product-card" onclick="openTea('masala')">
+                <img src="Voodoo Masala Sachet de Thé.png" alt="Masala" class="product-img">
+                <h3 class="luxury-serif">Voodoo Masala</h3>
+                <p class="price-tag">VOIR LE SECRET</p>
+            </div>
+
+            <div class="product-card" onclick="openTea('peach')">
+                <img src="Velvet Tea Sachet de Thé.png" alt="Peach" class="product-img">
+                <h3 class="luxury-serif">Velvet Peach</h3>
+                <p class="price-tag">VOIR LE SECRET</p>
+            </div>
+        </div>
+    </section>
+</main>
     <div id="tea-modal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeTea()">&times;</span>
