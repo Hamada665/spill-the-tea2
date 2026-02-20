@@ -245,6 +245,49 @@ h1, h2, h3, .luxury-serif {
     font-size: 0.8rem;
 }
 
+/* ... après .piece-back ... */
+
+/* ==========================================================================
+   5.1 BOITE DE RÉVÉLATION (Gossip Room)
+   ========================================================================== */
+
+.secret-reveal-box {
+    background: var(--glass-bg); /* Utilise la variable glass pour la transparence */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--border-color);
+    border-radius: var(--card-radius);
+    padding: 40px;
+    margin: 50px auto;
+    max-width: 800px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    transition: var(--transition-luxe);
+}
+
+/* Force la couleur du texte révélé pour être lisible partout */
+.secret-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: var(--text-main);
+    font-weight: 400;
+    min-height: 120px;
+}
+
+/* On peut aussi ajouter l'animation du curseur ici pour le garder centralisé */
+.typed-text::after {
+    content: '|';
+    display: inline-block;
+    animation: blink-caret 0.75s step-end infinite;
+    color: var(--accent-gold);
+}
+
+@keyframes blink-caret {
+    from, to { opacity: 0; }
+    50% { opacity: 1; }
+}
+
 /* ==========================================================================
    6. BOUTIQUE & GRILLE LUXE
    ========================================================================== */
