@@ -1,13 +1,36 @@
 /* ==========================================================================
-   PROJECT: Spill The Tea - Interactive Engine
+   PROJECT: Spill The Tea - Interactive Engine (Boutique + Puzzle)
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-   // --- 3. LOGIQUE DU PUZZLE (Gossip Room) ---
+    
+    // --- 1. GESTION DU THÈME (Sombre/Clair) ---
+    const themeBtn = document.getElementById('theme-switch');
+    const htmlElement = document.documentElement;
+
+    if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+            const isDark = htmlElement.getAttribute('data-theme') === 'dark';
+            htmlElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            themeBtn.innerText = isDark ? "🌙 Sombre" : "☀️ Clair";
+        });
+    }
+
+    // --- 2. SCROLL REVEAL ENGINE ---
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+    // --- 3. LOGIQUE DU PUZZLE (Gossip Room) ---
     const puzzleGrid = document.querySelector('.puzzle-grid');
     const secretTextDisplay = document.getElementById('secret-text-display');
     
-    // On ne lance la logique que si on est sur la page Gossip Room
     if (puzzleGrid && secretTextDisplay) {
         const puzzleData = [
             { id: 1, initial: "Le Testament...", revealed: "Le testament du vieux maître, scellé sous la cire rouge, parlait d'un trésor enfoui non pas en or, mais en parchemins anciens." },
@@ -28,7 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
             let i = 0;
             secretTextDisplay.textContent = '';
             clearTimeout(typingTimeout);
-
             function type() {
                 if (i < text.length) {
                     secretTextDisplay.textContent += text.charAt(i);
@@ -42,73 +64,73 @@ document.addEventListener('DOMContentLoaded', () => {
         puzzleData.forEach(piece => {
             const puzzleDiv = document.createElement('div');
             puzzleDiv.classList.add('puzzle-piece');
-            puzzleDiv.dataset.id = piece.id;
-            puzzleDiv.innerHTML = `
-                <div class="piece-inner">
-                    <div class="piece-front">${piece.initial}</div>
-                    <div class="piece-back">${piece.revealed}</div>
-                </div>
-            `;
-
+            puzzleDiv.innerHTML = `<div class="piece-inner"><div class="piece-front">${piece.initial}</div><div class="piece-back">${piece.revealed}</div></div>`;
             puzzleDiv.addEventListener('click', () => {
                 if (!revealedPieces.has(piece.id)) {
                     revealedPieces.add(piece.id);
                     puzzleDiv.classList.add('revealed');
-
-                    // On trie et on assemble le secret
-                    const currentSecret = Array.from(revealedPieces)
-                        .sort((a, b) => a - b)
-                        .map(id => puzzleData.find(p => p.id === id).revealed)
-                        .join(' ');
-
+                    const currentSecret = Array.from(revealedPieces).sort((a,b)=>a-b).map(id => puzzleData.find(p=>p.id===id).revealed).join(' ');
                     typeSecretText(currentSecret);
                 }
             });
             puzzleGrid.appendChild(puzzleDiv);
         });
     }
-    
-    // --- 1. GESTION DU THÈME (Sombre/Clair) ---
-    const themeBtn = document.getElementById('theme-switch');
-    const htmlElement = document.documentElement;
 
-    if (themeBtn) {
-        themeBtn.addEventListener('click', () => {
-            if (htmlElement.getAttribute('data-theme') === 'dark') {
-                htmlElement.setAttribute('data-theme', 'light');
-                themeBtn.innerText = "🌙 Sombre";
-            } else {
-                htmlElement.setAttribute('data-theme', 'dark');
-                themeBtn.innerText = "☀️ Clair";
-            }
-        });
-    }
+    // --- 4. CONFIGURATEUR DE COFFRETS (Boutique) ---
+    const teaList = ["Eclipse Oolong", "Golden Chai", "Golden Jasmine", "Imperial Black", "Midnight Jasmine", "Mystic Rooibos", "Royal Blueberry", "Sacred Chamomile", "Velvet Mint", "Verdant Jade", "Voodoo Masala", "Wild Berry", "Zen Matcha"];
+    let currentTotal = 0;
+    let maxCapacity = 40;
 
-    // --- 2. SCROLL REVEAL ENGINE (Intersection Observer) ---
-    const observerOptions = {
-        threshold: 0.15,
-        rootMargin: '0px 0px -50px 0px'
+    const boxModal = document.getElementById('box-modal');
+    const paymentModal = document.getElementById('payment-modal');
+
+    window.updateQty = function(teaId, change) {
+        const display = document.getElementById(`qty-${teaId}`);
+        let qty = parseInt(display.innerText);
+        if (change > 0 && currentTotal < maxCapacity) { qty++; currentTotal++; }
+        else if (change < 0 && qty > 0) { qty--; currentTotal--; }
+        display.innerText = qty;
+        document.getElementById('current-count').innerText = currentTotal;
+        
+        const btn = document.getElementById('checkout-box-btn');
+        btn.disabled = (currentTotal !== maxCapacity);
+        btn.innerText = (currentTotal === maxCapacity) ? "Passer au paiement" : `Encore ${maxCapacity - currentTotal} sachets...`;
     };
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-                // On arrête d'observer une fois l'élément révélé pour la performance
-                observer.unobserve(entry.target);
-            }
+    document.querySelectorAll('.box-card .btn-luxe').forEach((btn, index) => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            currentTotal = 0;
+            maxCapacity = (index === 0) ? 40 : 30;
+            document.getElementById('max-capacity').innerText = maxCapacity;
+            document.getElementById('current-count').innerText = "0";
+            document.getElementById('modal-title').innerText = (index === 0) ? "Coffret Héritage (40)" : "Coffret Signature (30)";
+            
+            const listContainer = document.getElementById('tea-selection-list');
+            listContainer.innerHTML = teaList.map(tea => `
+                <div class="tea-item">
+                    <span>${tea}</span>
+                    <div class="qty-controls">
+                        <button type="button" class="qty-btn" onclick="updateQty('${tea.replace(/\s/g, '')}', -1)">-</button>
+                        <span id="qty-${tea.replace(/\s/g, '')}">0</span>
+                        <button type="button" class="qty-btn" onclick="updateQty('${tea.replace(/\s/g, '')}', 1)">+</button>
+                    </div>
+                </div>
+            `).join('');
+            boxModal.style.display = "block";
         });
-    }, observerOptions);
+    });
 
-    // On cible tous les éléments à révéler
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-});
+    document.getElementById('checkout-box-btn')?.addEventListener('click', () => {
+        boxModal.style.display = "none";
+        paymentModal.style.display = "block";
+    });
 
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const heroBg = document.querySelector('.hero-bg');
-    if (heroBg) {
-        // L'image bouge un peu plus lentement pour créer la profondeur
-        heroBg.style.transform = `translateY(${scrolled * 0.4}px)`;
-    }
+    document.querySelectorAll('.close-modal').forEach(btn => {
+        btn.onclick = () => {
+            boxModal.style.display = "none";
+            paymentModal.style.display = "none";
+        };
+    });
 });
