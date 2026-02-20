@@ -87,19 +87,7 @@
         </p>
     </footer>
 
-    <script>
-        const themeBtn = document.getElementById('theme-switch');
-        const htmlElement = document.documentElement;
-
-        themeBtn.addEventListener('click', () => {
-            if (htmlElement.getAttribute('data-theme') === 'dark') {
-                htmlElement.setAttribute('data-theme', 'light');
-                themeBtn.innerText = "🌙 Sombre";
-            } else {
-                htmlElement.setAttribute('data-theme', 'dark');
-                themeBtn.innerText = "☀️ Clair";
-            }
-        });
-    </script>
+    <script src="script.js"></script>
+</body>
 </body>
 </html>
