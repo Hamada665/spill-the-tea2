@@ -133,4 +133,56 @@ document.addEventListener('DOMContentLoaded', () => {
             paymentModal.style.display = "none";
         };
     });
+
+   // --- 5. LOGIQUE DU PANIER (LocalStorage) ---
+
+    // Fonction pour ajouter un thé au panier
+    window.addToCart = function(name, price) {
+        let cart = JSON.parse(localStorage.getItem('stt_cart')) || [];
+        cart.push({ name, price });
+        localStorage.setItem('stt_cart', JSON.stringify(cart));
+        
+        // Petite notification élégante
+        alert(`${name} a été ajouté à votre collection.`);
+    };
+
+    // Si on est sur la page Panier, on affiche les articles
+    const cartList = document.getElementById('cart-items-list');
+    if (cartList) {
+        const cart = JSON.parse(localStorage.getItem('stt_cart')) || [];
+        const emptyMsg = document.getElementById('cart-empty-msg');
+        const summary = document.getElementById('cart-summary');
+        const totalDisplay = document.getElementById('cart-total-price');
+
+        if (cart.length > 0) {
+            emptyMsg.style.display = 'none';
+            summary.style.display = 'block';
+            
+            let total = 0;
+            cartList.innerHTML = cart.map((item, index) => {
+                total += item.price;
+                return `
+                    <div class="tea-item" style="padding: 15px 0;">
+                        <span>${item.name}</span>
+                        <div>
+                            <span style="margin-right: 20px;">${item.price},00 DH</span>
+                            <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer;">✕</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            totalDisplay.innerText = total;
+        }
+    }
+
+    window.removeFromCart = function(index) {
+        let cart = JSON.parse(localStorage.getItem('stt_cart')) || [];
+        cart.splice(index, 1);
+        localStorage.setItem('stt_cart', JSON.stringify(cart));
+        location.reload(); // Rafraîchit pour mettre à jour l'affichage
+    };
+
+    document.getElementById('btn-checkout-final')?.addEventListener('click', () => {
+        document.getElementById('payment-modal').style.display = 'block';
+    });
 });
