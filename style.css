@@ -41,6 +41,21 @@
 }
 
 /* ==========================================================================
+   GÉRER L'IMAGE DE FOND (Hero Overlay Adaptatif)
+   ========================================================================== */
+
+/* Mode Sombre (Défaut) : On garde le voile bordeaux profond */
+.hero-bg {
+    background: linear-gradient(rgba(58, 14, 19, 0.75), rgba(58, 14, 19, 0.8)) !important;
+    transition: var(--transition-luxe);
+}
+
+/* Mode Clair : On remplace par un voile blanc crème pour que le bordeaux soit lisible */
+[data-theme="light"] .hero-bg {
+    background: linear-gradient(rgba(244, 238, 232, 0.85), rgba(244, 238, 232, 0.75)) !important;
+}
+
+/* ==========================================================================
    2. RESET & BASE STYLES
    ========================================================================== */
 
