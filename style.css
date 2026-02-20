@@ -195,15 +195,17 @@ h1, h2, h3, .luxury-serif {
 
 /* Formes de puzzle via clip-path */
 .puzzle-piece {
-    width: 210px; /* Surplomb pour l'imbrication */
-    height: 210px;
+    width: 200px; /* On augmente légèrement pour créer un chevauchement */
+    height: 200px;
+    margin: -5px; /* Les pièces se chevauchent pour cacher les trous */
+    background: var(--secondary-bg);
+    transition: var(--transition-luxe);
     cursor: pointer;
     position: relative;
-    transition: var(--transition-luxe);
-    background: var(--secondary-bg);
-    border: 0.5px solid var(--border-color);
-    /* Exemple de forme avec encoche */
-    clip-path: polygon(0% 20%, 20% 20%, 20% 0%, 80% 0%, 80% 20%, 100% 20%, 100% 80%, 80% 80%, 80% 100%, 20% 100%, 20% 80%, 0% 80%);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    /* Forme puzzle plus "propre" */
+    clip-path: polygon(25% 0%, 75% 0%, 75% 25%, 100% 25%, 100% 75%, 75% 75%, 75% 100%, 25% 100%, 25% 75%, 0% 75%, 0% 25%, 25% 25%);
 }
 
 .piece-inner {
