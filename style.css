@@ -398,3 +398,63 @@ footer {
 /* Optionnel : faire apparaître les étapes 01, 02, 03 l'une après l'autre */
 .step:nth-child(2) { transition-delay: 0.2s; }
 .step:nth-child(3) { transition-delay: 0.4s; }
+
+/* ==========================================================================
+   SECTION BOUTIQUE - AJOUTS
+   ========================================================================== */
+
+/* On s'assure que le titre n'est pas caché sous le menu */
+.univers-section {
+    padding: 140px 10% 60px; 
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 3rem;
+    margin-top: 3rem;
+}
+
+.product-card {
+    background: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    border-radius: var(--card-radius);
+    text-align: center;
+    transition: var(--transition-luxe);
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--accent-gold);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+/* Style pour tes visuels de thés */
+.product-img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 1.2rem;
+    object-fit: cover;
+}
+
+.product-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    color: var(--accent-gold);
+}
+
+.product-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.price-tag {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
