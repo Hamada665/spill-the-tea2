@@ -286,7 +286,7 @@ footer {
 }
 
 /* ==========================================================================
-   8. LOGO SMART ADAPTATION (Vivid Gold Version)
+   8. LOGO SMART ADAPTATION (Force Gold)
    ========================================================================== */
 
 .logo-img {
@@ -294,24 +294,22 @@ footer {
     width: auto;
     transition: var(--transition-luxe);
     display: block;
-    /* This combo turns everything white, then tints it gold-bronze */
-    filter: brightness(0) invert(1) sepia(1) saturate(10) hue-rotate(10deg) brightness(0.9);
+    /* STEP 1: Turn the whole logo into a "Golden Silhouette" */
+    /* This makes it 100% gold, ignoring the original colors */
+    filter: brightness(0) saturate(100%) invert(80%) sepia(28%) saturate(846%) hue-rotate(345deg) brightness(91%) contrast(85%);
 }
 
-/* --- Light Theme (Original) --- */
+/* --- Thème Clair --- */
 [data-theme="light"] .logo-img {
-    filter: none; /* Back to original Black & Gold */
+    /* Back to your original professional file */
+    filter: none;
 }
 
-/* --- Hover Effect --- */
+/* --- Effet au Survol --- */
 .logo-img:hover {
     transform: scale(1.05);
-    /* Extra glow for dark mode */
-    filter: brightness(0) invert(1) sepia(1) saturate(10) hue-rotate(10deg) brightness(1.2) drop-shadow(0 0 8px rgba(212, 175, 110, 0.6));
-}
-
-[data-theme="light"] .logo-img:hover {
-    filter: brightness(1.1) drop-shadow(0 0 10px rgba(166, 124, 82, 0.2));
+    /* Make the gold glow more on hover */
+    filter: brightness(0) saturate(100%) invert(80%) sepia(28%) saturate(1200%) hue-rotate(345deg) brightness(110%) contrast(90%) drop-shadow(0 0 8px rgba(212, 175, 110, 0.4));
 }
 
 /* --- Responsive --- */
