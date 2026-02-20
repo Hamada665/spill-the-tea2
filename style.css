@@ -254,7 +254,7 @@ h1, h2, h3, .luxury-serif {
 }
 
 /* ==========================================================================
-   7. FOOTER & LOGO BASE
+   7. FOOTER
    ========================================================================== */
 
 footer {
@@ -270,38 +270,8 @@ footer {
     margin-bottom: 2rem;
 }
 
-/* --- LOGO SMART ADAPTATION (Final Force Gold) --- */
-.logo-img {
-    height: 75px; 
-    width: auto;
-    transition: var(--transition-luxe);
-    display: block;
-    /* Force le doré par défaut (pour le thème sombre bordeaux) */
-    filter: brightness(0) saturate(100%) invert(80%) sepia(28%) saturate(1200%) hue-rotate(345deg) brightness(110%) contrast(90%) !important;
-}
-
-/* --- Thème Clair --- */
-[data-theme="light"] .logo-img {
-    /* Retour au logo original noir & or sur fond clair */
-    filter: none !important;
-}
-
-/* --- Effet au Survol --- */
-.logo-img:hover {
-    transform: scale(1.05);
-    /* Accentue l'éclat du doré au survol */
-    filter: brightness(0) saturate(100%) invert(80%) sepia(28%) saturate(1500%) hue-rotate(345deg) brightness(120%) contrast(100%) drop-shadow(0 0 12px rgba(212, 175, 110, 0.6)) !important;
-}
-
-/* --- Responsive --- */
-@media (max-width: 768px) {
-    .logo-img {
-        height: 55px;
-    }
-}
-
 /* ==========================================================================
-   8. LOGO "NATURAL GOLD" (White Text + Original Gold)
+   8. LOGO "NATURAL GOLD" (White Text + Original Gold Texture)
    ========================================================================== */
 
 .logo-img {
@@ -309,22 +279,28 @@ footer {
     width: auto;
     transition: var(--transition-luxe);
     display: block;
-    /* ÉTAPE 1: Inverser le noir en blanc (mais l'or devient bleu) */
-    /* ÉTAPE 2: Hue-rotate de 180° pour ramener le bleu vers sa couleur d'origine (l'Or) */
-    filter: invert(1) hue-rotate(180deg) brightness(1.2) !important;
+    /* MÉTHODE CHIRURGICALE : 
+       Invert(1) passe le noir en blanc. 
+       Hue-rotate(180deg) annule l'effet bleu sur l'or et le remet doré. */
+    filter: invert(1) hue-rotate(180deg) brightness(1.1) contrast(1.1) !important;
 }
 
-/* --- Thème Clair --- */
+/* --- Thème Clair : On retire tout pour voir le logo original (Noir & Or) --- */
 [data-theme="light"] .logo-img {
-    /* Retour au logo original (Noir et Or) */
     filter: none !important;
 }
 
 /* --- Effet au Survol --- */
 .logo-img:hover {
     transform: scale(1.05);
-    /* On booste un peu la luminosité au survol */
-    filter: invert(1) hue-rotate(180deg) brightness(1.5) drop-shadow(0 0 10px rgba(212, 175, 110, 0.3)) !important;
+    filter: invert(1) hue-rotate(180deg) brightness(1.4) drop-shadow(0 0 10px rgba(212, 175, 110, 0.4)) !important;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .logo-img {
+        height: 55px;
+    }
 }
 
 @media (max-width: 768px) {
