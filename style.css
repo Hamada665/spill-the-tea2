@@ -45,22 +45,25 @@
    ========================================================================== */
 
 .hero-bg {
-    /* --- AJOUT DES PROPRIÉTÉS DE MOUVEMENT ICI --- */
-    height: 125% !important; /* On l'agrandit pour le mouvement */
-    top: -12.5%;             /* On la centre */
+    height: 125% !important; 
+    top: -12.5%;             
     position: absolute;
     left: 0;
     width: 100%;
     z-index: -1;
-    /* ------------------------------------------- */
     
-    background: linear-gradient(rgba(58, 14, 19, 0.75), rgba(58, 14, 19, 0.8)) !important;
+    /* ON UTILISE background-image POUR NE PAS ÉCRASER L'IMAGE DU HTML */
+    background-image: linear-gradient(rgba(58, 14, 19, 0.75), rgba(58, 14, 19, 0.8)) !important;
+    
+    /* On force l'image à bien se comporter */
+    background-size: cover;
+    background-position: center;
     transition: var(--transition-luxe);
 }
 
-/* Mode Clair : On remplace par un voile blanc crème */
+/* Mode Clair */
 [data-theme="light"] .hero-bg {
-    background: linear-gradient(rgba(244, 238, 232, 0.85), rgba(244, 238, 232, 0.75)) !important;
+    background-image: linear-gradient(rgba(244, 238, 232, 0.85), rgba(244, 238, 232, 0.75)) !important;
 }
 /* ==========================================================================
    2. RESET & BASE STYLES
