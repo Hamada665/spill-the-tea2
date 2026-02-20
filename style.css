@@ -285,14 +285,38 @@ footer {
     filter: invert(1) brightness(2);
 }
 
-/* Hover effect for that luxury feel */
-.logo-img:hover {
-    transform: scale(1.03);
-    filter: drop-shadow(0 0 8px rgba(212, 175, 110, 0.4));
+/* ==========================================================================
+   8. LOGO SMART ADAPTATION
+   ========================================================================== */
+
+.logo-img {
+    height: 75px; /* Taille optimale */
+    width: auto;
+    transition: var(--transition-luxe);
+    display: block;
+    /* On applique un filtre par défaut pour le thème Dark (Bordeaux) */
+    filter: invert(1) brightness(2); 
 }
 
+/* --- Thème Clair --- */
+/* Quand l'utilisateur passe en mode clair, on remet le texte en noir */
+[data-theme="light"] .logo-img {
+    filter: invert(0) brightness(1);
+}
+
+/* --- Effet au Survol --- */
+.logo-img:hover {
+    transform: scale(1.05);
+    filter: invert(1) brightness(2.5) drop-shadow(0 0 10px rgba(212, 175, 110, 0.4));
+}
+
+[data-theme="light"] .logo-img:hover {
+    filter: invert(0) brightness(1.1) drop-shadow(0 0 10px rgba(166, 124, 82, 0.2));
+}
+
+/* --- Responsive --- */
 @media (max-width: 768px) {
     .logo-img {
-        height: 50px;
+        height: 55px;
     }
 }
