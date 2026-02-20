@@ -294,6 +294,20 @@ h1, h2, h3, .luxury-serif {
     border-color: var(--accent-gold);
 }
 
+/* Effet Herbier */
+.product-card div[style*="background"] {
+    transition: transform 0.8s ease;
+}
+
+.product-card:hover div[style*="background"] {
+    transform: scale(1.05);
+}
+
+.product-card {
+    cursor: pointer;
+    overflow: hidden; /* Pour que le zoom ne dépasse pas de la carte */
+}
+
 .price-tag {
     font-family: 'Playfair Display', serif;
     font-size: 1.5rem;
