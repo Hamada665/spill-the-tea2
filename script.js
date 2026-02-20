@@ -87,6 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.updateQty = function(teaId, change) {
         const display = document.getElementById(`qty-${teaId}`);
+        if (!display) return;
         let qty = parseInt(display.innerText);
         if (change > 0 && currentTotal < maxCapacity) { qty++; currentTotal++; }
         else if (change < 0 && qty > 0) { qty--; currentTotal--; }
@@ -94,8 +95,10 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('current-count').innerText = currentTotal;
         
         const btn = document.getElementById('checkout-box-btn');
-        btn.disabled = (currentTotal !== maxCapacity);
-        btn.innerText = (currentTotal === maxCapacity) ? "Passer au paiement" : `Encore ${maxCapacity - currentTotal} sachets...`;
+        if (btn) {
+            btn.disabled = (currentTotal !== maxCapacity);
+            btn.innerText = (currentTotal === maxCapacity) ? "Passer au paiement" : `Encore ${maxCapacity - currentTotal} sachets...`;
+        }
     };
 
     document.querySelectorAll('.box-card .btn-luxe').forEach((btn, index) => {
@@ -108,69 +111,63 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('modal-title').innerText = (index === 0) ? "Coffret Héritage (40)" : "Coffret Signature (30)";
             
             const listContainer = document.getElementById('tea-selection-list');
-            listContainer.innerHTML = teaList.map(tea => `
-                <div class="tea-item">
-                    <span>${tea}</span>
-                    <div class="qty-controls">
-                        <button type="button" class="qty-btn" onclick="updateQty('${tea.replace(/\s/g, '')}', -1)">-</button>
-                        <span id="qty-${tea.replace(/\s/g, '')}">0</span>
-                        <button type="button" class="qty-btn" onclick="updateQty('${tea.replace(/\s/g, '')}', 1)">+</button>
+            if (listContainer) {
+                listContainer.innerHTML = teaList.map(tea => `
+                    <div class="tea-item">
+                        <span>${tea}</span>
+                        <div class="qty-controls">
+                            <button type="button" class="qty-btn" onclick="updateQty('${tea.replace(/\s/g, '')}', -1)">-</button>
+                            <span id="qty-${tea.replace(/\s/g, '')}">0</span>
+                            <button type="button" class="qty-btn" onclick="updateQty('${tea.replace(/\s/g, '')}', 1)">+</button>
+                        </div>
                     </div>
-                </div>
-            `).join('');
-            boxModal.style.display = "block";
+                `).join('');
+            }
+            if (boxModal) boxModal.style.display = "block";
         });
     });
 
     document.getElementById('checkout-box-btn')?.addEventListener('click', () => {
-        boxModal.style.display = "none";
-        paymentModal.style.display = "block";
+        if (boxModal) boxModal.style.display = "none";
+        if (paymentModal) paymentModal.style.display = "block";
     });
 
     document.querySelectorAll('.close-modal').forEach(btn => {
         btn.onclick = () => {
-            boxModal.style.display = "none";
-            paymentModal.style.display = "none";
+            if (boxModal) boxModal.style.display = "none";
+            if (paymentModal) paymentModal.style.display = "none";
+            const teaModal = document.getElementById('tea-modal');
+            if (teaModal) teaModal.style.display = "none";
         };
     });
 
-   // --- 5. LOGIQUE DU PANIER (LocalStorage) ---
-
     // --- 5. LOGIQUE DU PANIER (LocalStorage + Badge) ---
-
-    // Fonction pour mettre à jour le petit chiffre sur l'icône
     function updateBadge() {
         const cart = JSON.parse(localStorage.getItem('stt_cart')) || [];
         const badge = document.getElementById('cart-count');
         if (badge) {
             badge.innerText = cart.length;
-            // Animation de "pop" pour attirer l'œil
             badge.style.transform = "scale(1.3)";
             setTimeout(() => badge.style.transform = "scale(1)", 200);
         }
     }
 
-    // Nouvelle fonction d'ajout (sans alert)
     window.addToCart = function(name, price) {
         let cart = JSON.parse(localStorage.getItem('stt_cart')) || [];
         cart.push({ name, price });
         localStorage.setItem('stt_cart', JSON.stringify(cart));
-        
-        // Mise à jour visuelle immédiate
         updateBadge();
 
-        // Feedback visuel : l'icône du panier clignote en vert pour confirmer
         const cartIcon = document.querySelector('.cart-icon-container');
         if(cartIcon) {
             cartIcon.style.backgroundColor = "#27ae60"; 
-            setTimeout(() => cartIcon.style.backgroundColor = "var(--accent-gold)", 600);
+            setTimeout(() => cartIcon.style.backgroundColor = "", 600);
         }
     };
 
-    // Charger le badge dès que la page s'affiche
     updateBadge();
 
-    // Si on est sur la page Panier, on affiche les articles
+    // Affichage page Panier
     const cartList = document.getElementById('cart-items-list');
     if (cartList) {
         const cart = JSON.parse(localStorage.getItem('stt_cart')) || [];
@@ -179,14 +176,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const totalDisplay = document.getElementById('cart-total-price');
 
         if (cart.length > 0) {
-            emptyMsg.style.display = 'none';
-            summary.style.display = 'block';
+            if (emptyMsg) emptyMsg.style.display = 'none';
+            if (summary) summary.style.display = 'block';
             
             let total = 0;
             cartList.innerHTML = cart.map((item, index) => {
                 total += item.price;
                 return `
-                    <div class="tea-item" style="padding: 15px 0;">
+                    <div class="tea-item" style="padding: 15px 0; display:flex; justify-content:space-between; border-bottom:1px solid rgba(212,175,110,0.2);">
                         <span>${item.name}</span>
                         <div>
                             <span style="margin-right: 20px;">${item.price},00 DH</span>
@@ -195,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 `;
             }).join('');
-            totalDisplay.innerText = total;
+            if (totalDisplay) totalDisplay.innerText = total;
         }
     }
 
@@ -203,38 +200,42 @@ document.addEventListener('DOMContentLoaded', () => {
         let cart = JSON.parse(localStorage.getItem('stt_cart')) || [];
         cart.splice(index, 1);
         localStorage.setItem('stt_cart', JSON.stringify(cart));
-        location.reload(); // Rafraîchit pour mettre à jour l'affichage
+        location.reload();
     };
 
     document.getElementById('btn-checkout-final')?.addEventListener('click', () => {
-        document.getElementById('payment-modal').style.display = 'block';
+        if (paymentModal) paymentModal.style.display = 'block';
     });
 
-   // --- 6. LOGIQUE DE L'HERBIER (Page Parfums) ---
-const teaData = {
-    hibiscus: {
-        title: "Midnight Hibiscus",
-        history: "Né sous les lunes rouges d'Afrique, ce thé était utilisé pour sceller les pactes secrets entre les clans.",
-        benefits: "Riche en antioxydants, il apaise le cœur et purifie l'esprit."
-    },
-    blueberry: {
-        title: "Royal Blueberry",
-        history: "La légende raconte que ces baies étaient réservées à la cour impériale pour stimuler la vision nocturne.",
-        benefits: "Soutient la mémoire et offre une sensation de satiété élégante."
-    },
-    // Ajoute les autres thés ici sur le même modèle...
-};
+    // --- 6. LOGIQUE DE L'HERBIER (Page Parfums) ---
+    const teaData = {
+        hibiscus: { title: "Midnight Hibiscus", history: "Un secret d'Afrique de l'Ouest, infusé sous la pleine lune.", benefits: "Riche en antioxydants et purifiant." },
+        blueberry: { title: "Royal Blueberry", history: "Le favori des cours impériales pour stimuler la vision nocturne.", benefits: "Soutient la mémoire et l'éclat." },
+        jasmine: { title: "Golden Jasmine", history: "Récolté à l'aube, il capture l'essence de la discrétion.", benefits: "Déstressant naturel majeur." },
+        mint: { title: "Velvet Mint", history: "Une menthe sauvage offrant une fraîcheur aristocratique.", benefits: "Facilite la digestion." },
+        blacktea: { title: "Imperial Black Tea", history: "Fermenté dans l'obscurité pour concentrer sa force.", benefits: "Énergie durable et concentration." },
+        rooibos: { title: "Mystic Rooibos", history: "Le trésor rouge sans théine des montagnes lointaines.", benefits: "Apaise le système nerveux." },
+        oolong: { title: "Eclipse Oolong", history: "Un thé semi-fermenté, à mi-chemin entre l'ombre et la lumière.", benefits: "Booste le métabolisme." },
+        chai: { title: "Golden Chai", history: "Un mélange d'épices sacrées pour réchauffer l'âme.", benefits: "Tonifiant et protecteur." },
+        matcha: { title: "Zen Matcha", history: "Poudre de jade issue des cérémonies les plus secrètes.", benefits: "Détoxifiant et clarté d'esprit." },
+        peach: { title: "Velvet Peach", history: "La douceur de la pêche mariée à la finesse du thé blanc.", benefits: "Hydratation et douceur." },
+        masala: { title: "Voodoo Masala", history: "Un thé épicé intense pour réveiller les esprits.", benefits: "Anti-fatigue puissant." },
+        chamomile: { title: "Sacred Chamomile", history: "Cueillie dans des jardins secrets pour un repos éternel.", benefits: "Remède ultime contre l'insomnie." },
+        jade: { title: "Verdant Jade", history: "Le thé vert le plus pur, frais comme la rosée.", benefits: "Riche en antioxydants." }
+    };
 
-window.openTea = function(key) {
-    const tea = teaData[key];
-    if(!tea) return;
-    document.getElementById('modal-title').innerText = tea.title;
-    document.getElementById('modal-history').innerText = tea.history;
-    document.getElementById('modal-benefits').innerText = tea.benefits;
-    document.getElementById('tea-modal').style.display = 'flex';
-};
+    window.openTea = function(key) {
+        const tea = teaData[key];
+        const modal = document.getElementById('tea-modal');
+        if(!tea || !modal) return;
+        document.getElementById('modal-title').innerText = tea.title;
+        document.getElementById('modal-history').innerText = tea.history;
+        document.getElementById('modal-benefits').innerText = tea.benefits;
+        modal.style.display = 'flex';
+    };
 
-window.closeTea = function() {
-    document.getElementById('tea-modal').style.display = 'none';
-};
+    window.closeTea = function() {
+        const modal = document.getElementById('tea-modal');
+        if (modal) modal.style.display = 'none';
+    };
 });
