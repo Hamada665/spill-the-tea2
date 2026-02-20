@@ -197,5 +197,35 @@
         });
     </script>
 
+    <div id="box-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2 class="luxury-serif" id="modal-title">Personnalisez votre coffret</h2>
+        <p class="limit-info">Capacité : <span id="current-count">0</span> / <span id="max-capacity">40</span> sachets</p>
+        
+        <div id="tea-selection-list" class="tea-selection-grid">
+            </div>
+
+        <div class="modal-footer">
+            <button id="checkout-box-btn" class="btn-luxe" disabled>Passer au paiement</button>
+        </div>
+    </div>
+</div>
+
+<div id="payment-modal" class="modal">
+    <div class="modal-content payment-card">
+        <h2 class="luxury-serif">Paiement Sécurisé</h2>
+        <div class="fictive-card">
+            <input type="text" placeholder="Nom sur la carte">
+            <input type="text" placeholder="0000 0000 0000 0000">
+            <div style="display:flex; gap:10px;">
+                <input type="text" placeholder="MM/YY">
+                <input type="text" placeholder="CVC">
+            </div>
+        </div>
+        <button class="btn-luxe" onclick="alert('Merci pour votre achat ! (Ceci est une démo)')">Confirmer le paiement</button>
+    </div>
+</div>
+    
 </body>
 </html>
