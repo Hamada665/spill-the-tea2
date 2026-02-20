@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Gazette | Spill The Tea</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .blog-hero {
+            padding: 150px 10% 60px;
+            text-align: center;
+            background: linear-gradient(to bottom, var(--secondary-bg), var(--primary-bg));
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            padding: 0 10% 100px;
+        }
+
+        .blog-card {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            transition: var(--transition-luxe);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-gold);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .blog-image {
+            height: 250px;
+            width: 100%;
+            object-fit: cover;
+            transition: var(--transition-luxe);
+        }
+
+        .blog-card:hover .blog-image {
+            transform: scale(1.05);
+        }
+
+        .blog-content {
+            padding: 30px;
+            flex-grow: 1;
+        }
+
+        .blog-meta {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .blog-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .blog-excerpt {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+
+        .read-more-link {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            border-bottom: 1px solid var(--accent-gold);
+            padding-bottom: 5px;
+            transition: var(--transition-luxe);
+        }
+
+        .read-more-link:hover {
+            color: var(--accent-gold);
+            border-bottom-color: transparent;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-luxe">
+        <div class="logo luxury-serif">Spill The Tea</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="boutique.html">Boutique</a></li>
+                <li><a href="parfums.html">Parfums</a></li>
+                <li><a href="gossip-room.html">Gossip Room</a></li>
+                <li><a href="winners.html">Gagnants</a></li>
+            </ul>
+        </nav>
+        <button id="theme-switch" class="btn-luxe" style="padding: 8px 20px; font-size: 0.7rem;">🌓 Mode</button>
+    </header>
+
+    <main>
+        <section class="blog-hero">
+            <h1 class="luxury-serif" style="font-size: 3.5rem;">La Gazette des Secrets</h1>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 20px auto 0;">Chroniques d'infusions rares, rituels oubliés et fragments d'histoires non résolues.</p>
+        </section>
+
+        <section class="blog-grid">
+            <article class="blog-card">
+                <img src="https://images.unsplash.com/photo-1546852129-724e2402d345?auto=format&fit=crop&w=800&q=80" alt="Art du thé" class="blog-image">
+                <div class="blog-content">
+                    <span class="blog-meta">Rituel • 12 Février 2026</span>
+                    <h2 class="blog-title luxury-serif">L'art de l'infusion à minuit : pourquoi la température change tout</h2>
+                    <p class="blog-excerpt">Extraire l'essence d'un Midnight Hibiscus demande une précision chirurgicale. Découvrez le secret des 85 degrés Celsius.</p>
+                    <a href="#" class="read-more-link">Lire la suite</a>
+                </div>
+            </article>
+
+            <article class="blog-card">
+                <img src="https://images.unsplash.com/photo-1512568400610-62da28bc8a13?auto=format&fit=crop&w=800&q=80" alt="Mystère" class="blog-image">
+                <div class="blog-content">
+                    <span class="blog-meta">Archives • 05 Février 2026</span>
+                    <h2 class="blog-title luxury-serif">Les origines du puzzle : d'où viennent nos fragments ?</h2>
+                    <p class="blog-excerpt">Plongée dans l'histoire de la famille fondatrice et leur obsession pour la cryptographie et les thés de haute altitude.</p>
+                    <a href="#" class="read-more-link">Lire la suite</a>
+                </div>
+            </article>
+
+            <article class="blog-card">
+                <img src="https://images.unsplash.com/photo-1594631252845-29fc458695d1?auto=format&fit=crop&w=800&q=80" alt="Gagnants" class="blog-image">
+                <div class="blog-content">
+                    <span class="blog-meta">Communauté • 28 Janvier 2026</span>
+                    <h2 class="blog-title luxury-serif">Comment déchiffrer les secrets les plus complexes</h2>
+                    <p class="blog-excerpt">Nos 10 gagnants de la semaine dernière partagent leurs méthodes pour assembler les pièces du puzzle sans faillir.</p>
+                    <a href="#" class="read-more-link">Lire la suite</a>
+                </div>
+            </article>
+
+            <article class="blog-card">
+                <img src="https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?auto=format&fit=crop&w=800&q=80" alt="Bien-être" class="blog-image">
+                <div class="blog-content">
+                    <span class="blog-meta">Botanique • 15 Janvier 2026</span>
+                    <h2 class="blog-title luxury-serif">Velvet Mint : la fraîcheur qui réveille la mémoire</h2>
+                    <p class="blog-excerpt">Une analyse scientifique et mystique sur les vertus de notre menthe sauvage sur la concentration cognitive.</p>
+                    <a href="#" class="read-more-link">Lire la suite</a>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <a href="https://wa.me/212643668382" class="whatsapp-float" target="_blank">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.503-2.961-2.617-.087-.114-.708-.941-.708-1.792s.448-1.27.607-1.446c.159-.176.347-.22.463-.22s.231.001.332.005c.109.004.258-.041.402.304.144.347.491 1.2.534 1.289.043.089.072.191.014.304-.058.114-.087.191-.173.29-.087.099-.188.22-.268.297-.08.077-.164.159-.071.32.094.16.416.689.893 1.112.613.544 1.13.713 1.291.791.16.078.254.065.35-.045.094-.109.405-.471.514-.63.107-.16.216-.137.363-.083.144.054.915.432 1.073.51.159.078.265.117.304.183.039.067.039.387-.105.792z"/>
+        </svg>
+    </a>
+
+    <footer class="luxury-serif">
+        <div class="footer-logo">Spill The Tea</div>
+        <p style="font-family: 'Poppins'; font-weight: 300; font-size: 0.8rem; color: var(--text-muted);">L'ART DU SECRET, UNE INFUSION À LA FOIS.</p>
+    </footer>
+
+    <script>
+        const themeBtn = document.getElementById('theme-switch');
+        const htmlElement = document.documentElement;
+        themeBtn.addEventListener('click', () => {
+            const isDark = htmlElement.getAttribute('data-theme') === 'dark';
+            htmlElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            themeBtn.innerText = isDark ? "🌙 Sombre" : "☀️ Clair";
+        });
+    </script>
+</body>
+</html>
