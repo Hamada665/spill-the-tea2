@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spill The Tea | L'Art de l'Infusion Mystérieuse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header-luxe">
+        <div class="logo luxury-serif">Spill The Tea</div>
+        
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="boutique.html">Boutique</a></li>
+                <li><a href="parfums.html">Parfums</a></li>
+                <li><a href="gossip-room.html">Gossip Room</a></li>
+                <li><a href="winners.html">Gagnants</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-actions">
+            <button id="theme-switch" class="btn-luxe" style="padding: 8px 20px; font-size: 0.7rem;">🌓 Mode</button>
+        </div>
+    </header>
+
+    <section class="hero" style="height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+        <div class="hero-bg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(58, 14, 19, 0.7), rgba(58, 14, 19, 0.7)), url('https://images.unsplash.com/photo-1544787210-2211d44b565a?auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; z-index: -1;"></div>
+        
+        <div class="hero-content" style="text-align: center; max-width: 800px; padding: 0 20px;">
+            <h1 style="font-size: clamp(3rem, 8vw, 5rem); margin-bottom: 1.5rem; line-height: 1.1;">L'infusion des <br><span style="color: var(--accent-gold);">secrets oubliés</span></h1>
+            <p style="font-size: 1.2rem; margin-bottom: 2.5rem; color: var(--text-muted); font-weight: 300; letter-spacing: 1px;">
+                Découvrez une expérience sensorielle où chaque sachet de thé révèle un fragment de vérité. Infusez le mystère, rejoignez la Gossip Room.
+            </p>
+            <div class="hero-btns" style="display: flex; gap: 20px; justify-content: center;">
+                <a href="boutique.html" class="btn-luxe">Découvrir la collection</a>
+                <a href="gossip-room.html" class="btn-luxe" style="background: transparent; border-color: var(--text-main); color: var(--text-main);">Explorer le Puzzle</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="concept-section" style="padding: var(--section-padding); text-align: center;">
+        <h2 class="luxury-serif" style="font-size: 2.5rem; margin-bottom: 4rem;">Le Rituel du Secret</h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px;">
+            <div class="step">
+                <div style="width: 80px; height: 80px; border: 1px solid var(--accent-gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; font-family: 'Playfair Display'; font-size: 1.5rem; color: var(--accent-gold);">01</div>
+                <h3 style="margin-bottom: 15px;">Infusez</h3>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">Préparez votre thé d'exception et laissez les arômes libérer votre esprit.</p>
+            </div>
+            
+            <div class="step">
+                <div style="width: 80px; height: 80px; border: 1px solid var(--accent-gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; font-family: 'Playfair Display'; font-size: 1.5rem; color: var(--accent-gold);">02</div>
+                <h3 style="margin-bottom: 15px;">Déchiffrez</h3>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">Trouvez la pièce de puzzle cachée dans votre coffret et scannez votre indice unique.</p>
+            </div>
+            
+            <div class="step">
+                <div style="width: 80px; height: 80px; border: 1px solid var(--accent-gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; font-family: 'Playfair Display'; font-size: 1.5rem; color: var(--accent-gold);">03</div>
+                <h3 style="margin-bottom: 15px;">Participez</h3>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">Assemblez les vérités avec la communauté et gagnez des privilèges exclusifs.</p>
+            </div>
+        </div>
+    </section>
+
+    <a href="https://wa.me/212643668382" class="whatsapp-float" target="_blank">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.503-2.961-2.617-.087-.114-.708-.941-.708-1.792s.448-1.27.607-1.446c.159-.176.347-.22.463-.22s.231.001.332.005c.109.004.258-.041.402.304.144.347.491 1.2.534 1.289.043.089.072.191.014.304-.058.114-.087.191-.173.29-.087.099-.188.22-.268.297-.08.077-.164.159-.071.32.094.16.416.689.893 1.112.613.544 1.13.713 1.291.791.16.078.254.065.35-.045.094-.109.405-.471.514-.63.107-.16.216-.137.363-.083.144.054.915.432 1.073.51.159.078.265.117.304.183.039.067.039.387-.105.792z"/>
+        </svg>
+    </a>
+
+    <footer class="luxury-serif">
+        <div class="footer-logo">Spill The Tea</div>
+        <p style="font-family: 'Poppins'; font-weight: 300; font-size: 0.8rem; letter-spacing: 2px; color: var(--text-muted);">
+            © 2026 DROITS RÉSERVÉS. L'ABUS DE MYSTÈRE EST RECOMMANDÉ.
+        </p>
+    </footer>
+
+    <script>
+        const themeBtn = document.getElementById('theme-switch');
+        const htmlElement = document.documentElement;
+
+        themeBtn.addEventListener('click', () => {
+            if (htmlElement.getAttribute('data-theme') === 'dark') {
+                htmlElement.setAttribute('data-theme', 'light');
+                themeBtn.innerText = "🌙 Sombre";
+            } else {
+                htmlElement.setAttribute('data-theme', 'dark');
+                themeBtn.innerText = "☀️ Clair";
+            }
+        });
+    </script>
+</body>
+</html>
