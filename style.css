@@ -301,7 +301,7 @@ footer {
 }
 
 /* ==========================================================================
-   8. LOGO SMART ADAPTATION (Force Gold)
+   8. LOGO "NATURAL GOLD" (White Text + Original Gold)
    ========================================================================== */
 
 .logo-img {
@@ -309,27 +309,24 @@ footer {
     width: auto;
     transition: var(--transition-luxe);
     display: block;
-    /* STEP 1: Turn the whole logo into a "Golden Silhouette" */
-    /* This makes it 100% gold, ignoring the original colors */
-    filter: brightness(0) saturate(100%) invert(80%) sepia(28%) saturate(846%) hue-rotate(345deg) brightness(91%) contrast(85%);
+    /* ÉTAPE 1: Inverser le noir en blanc (mais l'or devient bleu) */
+    /* ÉTAPE 2: Hue-rotate de 180° pour ramener le bleu vers sa couleur d'origine (l'Or) */
+    filter: invert(1) hue-rotate(180deg) brightness(1.2) !important;
 }
 
 /* --- Thème Clair --- */
 [data-theme="light"] .logo-img {
-    /* Back to your original professional file */
-    filter: none;
+    /* Retour au logo original (Noir et Or) */
+    filter: none !important;
 }
 
 /* --- Effet au Survol --- */
 .logo-img:hover {
     transform: scale(1.05);
-    /* Make the gold glow more on hover */
-    filter: brightness(0) saturate(100%) invert(80%) sepia(28%) saturate(1200%) hue-rotate(345deg) brightness(110%) contrast(90%) drop-shadow(0 0 8px rgba(212, 175, 110, 0.4));
+    /* On booste un peu la luminosité au survol */
+    filter: invert(1) hue-rotate(180deg) brightness(1.5) drop-shadow(0 0 10px rgba(212, 175, 110, 0.3)) !important;
 }
 
-/* --- Responsive --- */
 @media (max-width: 768px) {
-    .logo-img {
-        height: 55px;
-    }
+    .logo-img { height: 55px; }
 }
