@@ -269,3 +269,30 @@ footer {
     color: var(--accent-gold);
     margin-bottom: 2rem;
 }
+
+/* --- Logo Base Style --- */
+.logo-img {
+    height: 70px; /* Slightly larger to appreciate the gold frame */
+    width: auto;
+    transition: var(--transition-luxe);
+    display: block;
+}
+
+/* --- Dark Mode Logic --- */
+/* When the [data-theme="dark"] is active on the <html> tag */
+[data-theme="dark"] .logo-img {
+    /* This inverts the black text to white but keeps the gold visible */
+    filter: invert(1) brightness(2);
+}
+
+/* Hover effect for that luxury feel */
+.logo-img:hover {
+    transform: scale(1.03);
+    filter: drop-shadow(0 0 8px rgba(212, 175, 110, 0.4));
+}
+
+@media (max-width: 768px) {
+    .logo-img {
+        height: 50px;
+    }
+}
