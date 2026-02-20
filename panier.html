@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Panier | Spill The Tea</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header-luxe">
+        <div class="logo"><a href="index.html"><img src="Spill The Tea Logo.png" alt="Logo" class="logo-img"></a></div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="boutique.html">Boutique</a></li>
+                <li><a href="panier.html">Panier</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="univers-section">
+        <div class="gossip-header">
+            <h1 class="luxury-serif">Votre Sélection</h1>
+            <p>Le raffinement prend du temps. Vérifiez vos choix avant de conclure votre commande.</p>
+        </div>
+
+        <div id="cart-container" class="secret-reveal-box" style="max-width: 900px;">
+            <div id="cart-empty-msg">Votre panier est vide... pour l'instant.</div>
+            <div id="cart-items-list"></div>
+            
+            <div id="cart-summary" style="margin-top: 30px; border-top: 1px solid var(--border-color); padding-top: 20px; display: none;">
+                <h3 class="luxury-serif">Total: <span id="cart-total-price">0</span> DH</h3>
+                <button class="btn-luxe" id="btn-checkout-final" style="margin-top: 20px;">Procéder au paiement</button>
+            </div>
+        </div>
+    </main>
+
+    <div id="payment-modal" class="modal">
+        <div class="modal-content payment-card">
+            <h2 class="luxury-serif">Paiement Sécurisé</h2>
+            <div class="fictive-card">
+                <input type="text" placeholder="Nom sur la carte">
+                <input type="text" placeholder="0000 0000 0000 0000">
+                <div style="display:flex; gap:10px;">
+                    <input type="text" placeholder="MM/YY"> <input type="text" placeholder="CVC">
+                </div>
+            </div>
+            <button class="btn-luxe" onclick="alert('Commande confirmée ! Nos agents vous contacteront sous 24h.')">Confirmer le paiement</button>
+            <button class="btn-luxe" style="background:none; border:none; color:var(--text-muted);" onclick="document.getElementById('payment-modal').style.display='none'">Annuler</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
