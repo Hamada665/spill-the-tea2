@@ -185,26 +185,23 @@ h1, h2, h3, .luxury-serif {
    5. INGÉNIERIE DU PUZZLE (Gossip Room)
    ========================================================================== */
 
-.puzzle-container {
+.puzzle-grid {
     display: grid;
-    grid-template-columns: repeat(3, 200px);
-    gap: 0; /* Les pièces s'imbriquent */
+    grid-template-columns: repeat(3, 180px); /* 3 colonnes de 180px */
+    gap: 10px;
     justify-content: center;
     perspective: 1000px;
+    margin: 40px auto;
 }
 
-/* Formes de puzzle via clip-path */
 .puzzle-piece {
-    width: 200px; /* On augmente légèrement pour créer un chevauchement */
-    height: 200px;
-    margin: -5px; /* Les pièces se chevauchent pour cacher les trous */
-    background: var(--secondary-bg);
-    transition: var(--transition-luxe);
+    width: 180px;
+    height: 180px;
     cursor: pointer;
     position: relative;
     transform-style: preserve-3d;
-    perspective: 1000px;
-    /* Forme puzzle plus "propre" */
+    transition: var(--transition-luxe);
+    /* Forme puzzle élégante */
     clip-path: polygon(25% 0%, 75% 0%, 75% 25%, 100% 25%, 100% 75%, 75% 75%, 75% 100%, 25% 100%, 25% 75%, 0% 75%, 0% 25%, 25% 25%);
 }
 
@@ -212,9 +209,8 @@ h1, h2, h3, .luxury-serif {
     position: relative;
     width: 100%;
     height: 100%;
-    text-align: center;
-    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .puzzle-piece.revealed .piece-inner {
@@ -230,12 +226,16 @@ h1, h2, h3, .luxury-serif {
     align-items: center;
     justify-content: center;
     padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
 }
 
 .piece-front {
+    background: var(--secondary-bg);
+    border: 1px solid var(--border-color);
     color: var(--accent-gold);
+    font-family: 'Playfair Display', serif;
     font-weight: bold;
-    opacity: 0.8;
 }
 
 .piece-back {
@@ -243,16 +243,11 @@ h1, h2, h3, .luxury-serif {
     color: var(--primary-bg);
     transform: rotateY(180deg);
     font-size: 0.8rem;
+    font-weight: 600;
 }
 
-/* ... après .piece-back ... */
-
-/* ==========================================================================
-   5.1 BOITE DE RÉVÉLATION (Gossip Room)
-   ========================================================================== */
-
 .secret-reveal-box {
-    background: var(--glass-bg); /* Utilise la variable glass pour la transparence */
+    background: var(--glass-bg);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border: 1px solid var(--border-color);
@@ -262,32 +257,15 @@ h1, h2, h3, .luxury-serif {
     max-width: 800px;
     text-align: center;
     box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    transition: var(--transition-luxe);
 }
 
-/* Force la couleur du texte révélé pour être lisible partout */
 .secret-text {
     font-family: 'Playfair Display', serif;
     font-size: 1.2rem;
     line-height: 1.8;
     color: var(--text-main);
-    font-weight: 400;
-    min-height: 120px;
+    min-height: 100px;
 }
-
-/* On peut aussi ajouter l'animation du curseur ici pour le garder centralisé */
-.typed-text::after {
-    content: '|';
-    display: inline-block;
-    animation: blink-caret 0.75s step-end infinite;
-    color: var(--accent-gold);
-}
-
-@keyframes blink-caret {
-    from, to { opacity: 0; }
-    50% { opacity: 1; }
-}
-
 /* ==========================================================================
    6. BOUTIQUE & GRILLE LUXE
    ========================================================================== */
