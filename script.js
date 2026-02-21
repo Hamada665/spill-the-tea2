@@ -17,15 +17,35 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     updateBadge();
 
-    // --- 3. EXPOSER LES FONCTIONS AU HTML ---
-    window.addToCart = (name, price) => {
-        let cart = JSON.parse(localStorage.getItem('stt_cart')) || [];
-        cart.push({ name, price });
-        localStorage.setItem('stt_cart', JSON.stringify(cart));
-        updateBadge();
-        alert(`${name} a été ajouté au panier !`);
-    };
-});
+   // --- 3. EXPOSER LES FONCTIONS AU HTML ---
+window.addToCart = (name, price) => {
+    let cart = JSON.parse(localStorage.getItem('stt_cart')) || [];
+    cart.push({ name, price });
+    localStorage.setItem('stt_cart', JSON.stringify(cart));
+    
+    // Mise à jour du badge
+    const badge = document.getElementById('cart-count');
+    if (badge) badge.innerText = cart.length;
+
+    // --- SYSTÈME DE NOTIFICATION LUXE ---
+    // On crée l'élément s'il n'existe pas
+    let toast = document.getElementById('luxury-toast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'luxury-toast';
+        toast.className = 'toast-notification';
+        document.body.appendChild(toast);
+    }
+
+    // On change le texte et on affiche
+    toast.innerText = `${name} a rejoint votre collection.`;
+    toast.classList.add('show');
+
+    // On cache après 3 secondes
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3000);
+};
 
 // --- 4. DONNÉES DE L'HERBIER (Tes 12 Thés) ---
 const teaData = {
