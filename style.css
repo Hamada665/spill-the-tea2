@@ -601,7 +601,7 @@ footer {
     position: fixed;
     right: 30px;
     top: 100px;
-    background: var(--gold);
+    background: var(--accent-gold);
     padding: 15px;
     border-radius: 50%;
     cursor: pointer;
