@@ -794,3 +794,23 @@ footer {
     /* Empêche le badge de se déformer si le chiffre est grand */
     flex-shrink: 0;
 }
+
+/* Style pour la révélation finale de l'histoire */
+.full-gossip-reveal {
+    box-shadow: 0 0 50px rgba(212, 175, 110, 0.2);
+    border: 2px solid var(--accent-gold) !important;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.full-gossip-reveal p {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+#final-reveal-btn:hover {
+    transform: scale(1.1);
+    background: var(--accent-gold-light);
+    box-shadow: 0 0 30px var(--accent-gold);
+}
