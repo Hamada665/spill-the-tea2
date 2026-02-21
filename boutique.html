@@ -163,7 +163,7 @@
             <h3 class="luxury-serif">Coffret Héritage</h3>
             <p class="box-material">Bois de noyer gravé & Charnières dorées</p>
             <p class="price-tag">250,00 DH</p>
-            <button class="btn-luxe">Choisir ce coffret</button>
+            <button class="btn-luxe" onclick="openBox('Coffret Héritage')">Choisir ce coffret</button>
         </div>
 
         <div class="box-card">
@@ -174,7 +174,7 @@
             <h3 class="luxury-serif">Coffret Signature</h3>
             <p class="box-material">Carton rigide mat & Marquage à chaud or</p>
             <p class="price-tag">120,00 DH</p>
-            <button class="btn-luxe">Choisir ce coffret</button>
+            <button class="btn-luxe" onclick="openBox('Coffret Signature')">Choisir ce coffret</button>
         </div>
     </div>
 </section>
@@ -187,35 +187,38 @@
 
    <script src="script.js"></script>
 
-    <div id="box-modal" class="modal">
-    <div class="modal-content">
-        <span class="close-modal">&times;</span>
-        <h2 class="luxury-serif" id="modal-title">Personnalisez votre coffret</h2>
-        <p class="limit-info">Capacité : <span id="current-count">0</span> / <span id="max-capacity">40</span> sachets</p>
-        
-        <div id="tea-selection-list" class="tea-selection-grid">
-            </div>
+    <div id="tea-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeTea()" style="cursor:pointer; float:right; font-size:2rem;">&times;</span>
+            
+            <h2 class="luxury-serif" id="modal-title">Titre du Coffret</h2>
+            
+            <p id="modal-history" style="font-style: italic; margin: 15px 0;"></p>
+            <p id="modal-benefits" style="color: var(--accent-gold); font-weight: bold; margin-bottom: 20px;"></p>
+            
+            <div id="tea-selection-list" class="tea-selection-grid"></div>
 
-        <div class="modal-footer">
-            <button id="checkout-box-btn" class="btn-luxe" disabled>Passer au paiement</button>
-        </div>
-    </div>
-</div>
-
-<div id="payment-modal" class="modal">
-    <div class="modal-content payment-card">
-        <h2 class="luxury-serif">Paiement Sécurisé</h2>
-        <div class="fictive-card">
-            <input type="text" placeholder="Nom sur la carte">
-            <input type="text" placeholder="0000 0000 0000 0000">
-            <div style="display:flex; gap:10px;">
-                <input type="text" placeholder="MM/YY">
-                <input type="text" placeholder="CVC">
+            <div class="modal-footer">
+                <button class="btn-luxe" onclick="closeTea()">Fermer</button>
             </div>
         </div>
-        <button class="btn-luxe" onclick="alert('Merci pour votre achat ! (Ceci est une démo)')">Confirmer le paiement</button>
     </div>
-</div>
+
+    <div id="payment-modal" class="modal">
+        <div class="modal-content payment-card">
+            <h2 class="luxury-serif">Paiement Sécurisé</h2>
+            <div class="fictive-card">
+                <input type="text" placeholder="Nom sur la carte" style="width:100%; margin:10px 0; padding:10px; background:var(--secondary-bg); border:1px solid var(--border-color); color:white;">
+                <input type="text" placeholder="0000 0000 0000 0000" style="width:100%; margin:10px 0; padding:10px; background:var(--secondary-bg); border:1px solid var(--border-color); color:white;">
+                <div style="display:flex; gap:10px;">
+                    <input type="text" placeholder="MM/YY" style="width:50%; padding:10px; background:var(--secondary-bg); border:1px solid var(--border-color); color:white;">
+                    <input type="text" placeholder="CVC" style="width:50%; padding:10px; background:var(--secondary-bg); border:1px solid var(--border-color); color:white;">
+                </div>
+            </div>
+            <button class="btn-luxe" onclick="alert('Merci pour votre achat !')">Confirmer le paiement</button>
+            <button class="btn-luxe" style="background:none; border:none; color:var(--text-muted);" onclick="document.getElementById('payment-modal').style.display='none'">Annuler</button>
+        </div>
+    </div>
     
 </body>
 </html>
