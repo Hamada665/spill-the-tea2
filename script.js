@@ -145,3 +145,14 @@ window.closeTea = function() {
     const modal = document.getElementById('tea-modal');
     if (modal) modal.style.display = 'none';
 };
+
+// --- 7. GESTION DES COFFRETS PERSONNALISÉS ---
+window.openBox = (boxName) => {
+    const modal = document.getElementById('tea-modal'); // On réutilise ta modale existante
+    if (modal) {
+        document.getElementById('modal-title').innerText = "Personnaliser votre " + boxName;
+        document.getElementById('modal-history').innerText = "Sélectionnez les thés que vous souhaitez inclure dans ce coffret d'exception.";
+        document.getElementById('modal-benefits').innerText = "Le prix sera calculé en fonction de votre sélection finale.";
+        modal.style.display = 'flex';
+    }
+};
