@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const teaData = {
     'oolong': { title: "Eclipse Oolong", history: "Un thé semi-fermenté aux notes de terre humide et de mystère.", benefits: "Améliore la concentration et booste le métabolisme." },
     'chai': { title: "Golden Chai", history: "Un mélange d'épices ancestrales utilisé pour réchauffer les cœurs solitaires.", benefits: "Anti-inflammatoire et tonifiant naturel." },
+    'hibiscus': {title: "Crimson Hibisus",history: "Une infusion écarlate dont la recette fut dérobée dans les jardins suspendus d'une cité oubliée. Sa couleur rouge sang n'est pas une coïncidence : elle représente la passion et les serments que l'on ne peut briser.",benefits: "Infusion tonifiante, riche en vitamine C et idéale pour réguler la tension."
     'jasmine': { title: "Golden Jasmine", history: "Des fleurs de jasmin cueillies à la main sous le premier croissant de lune.", benefits: "Réduit le stress et apaise l'esprit." },
     'blacktea': { title: "Imperial Black Tea", history: "Le thé des empereurs, sombre comme une nuit sans étoiles.", benefits: "Énergie durable et clarté mentale." },
     'midjasmine': { title: "Midnight Jasmine", history: "Une variante plus intense du jasmin pour les confidences nocturnes.", benefits: "Aide à la relaxation profonde." },
