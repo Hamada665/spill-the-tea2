@@ -979,3 +979,48 @@ footer {
     filter: blur(5px); 
     opacity: 0.5;
 }
+
+/* ==========================================================================
+   BOUTON INSTAGRAM LUXE
+   ========================================================================== */
+
+.instagram-float {
+    position: fixed;
+    bottom: 30px;
+    left: 30px; /* À l'opposé de WhatsApp pour l'équilibre */
+    z-index: 999;
+    background: var(--accent-gold);
+    color: var(--primary-bg);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    transition: var(--transition-luxe);
+    border: 1px solid var(--accent-gold-light);
+}
+
+.instagram-float svg {
+    width: 30px;
+    height: 30px;
+}
+
+.instagram-float:hover {
+    transform: scale(1.1) translateY(-5px);
+    background: var(--accent-gold-light);
+    box-shadow: 0 15px 30px rgba(212, 175, 110, 0.4);
+    color: #000;
+}
+
+/* Fix pour mobile : on les empile si l'écran est petit */
+@media (max-width: 768px) {
+    .instagram-float {
+        bottom: 100px; /* On le monte pour ne pas gêner WhatsApp */
+        right: 30px;
+        left: auto;
+        width: 50px;
+        height: 50px;
+    }
+}
