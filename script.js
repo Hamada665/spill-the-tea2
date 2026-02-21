@@ -59,3 +59,21 @@ window.closeTea = function() {
     const modal = document.getElementById('tea-modal');
     if (modal) modal.style.display = 'none';
 };
+
+// --- 5. SYSTÈME DE RÉVÉLATION AU SCROLL ---
+const revealElements = () => {
+    const reveals = document.querySelectorAll('.reveal');
+    reveals.forEach(el => {
+        const windowHeight = window.innerHeight;
+        const revealTop = el.getBoundingClientRect().top;
+        const revealPoint = 150; // Distance avant apparition
+
+        if (revealTop < windowHeight - revealPoint) {
+            el.classList.add('active');
+        }
+    });
+};
+
+// On lance la fonction au scroll et au chargement
+window.addEventListener('scroll', revealElements);
+revealElements();
