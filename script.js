@@ -300,7 +300,7 @@ function runGossipUpdate() {
                 <div style="padding: 20px; text-align:center; animation: fadeInUp 1s forwards;">
                     <h3 class="luxury-serif" style="margin-bottom:15px;">Félicitations, Détective.</h3>
                     <button class="btn-luxe" onclick="showFullStory()" style="box-shadow: 0 0 20px #d4af6e;">
-                        🔥 SPILL THE TEA
+                        🍵 SPILL THE TEA
                     </button>
                 </div>
             `;
