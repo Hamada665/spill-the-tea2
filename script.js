@@ -241,9 +241,8 @@ window.processBoxPayment = (name, price) => {
     }, 300);
 };
 
-// --- 8. GOSSIP ROOM ENGINE (Version Robuste pour l'Oral) ---
+// --- 8. GOSSIP ROOM ENGINE (EXTRÊMEMENT ROBUSTE) ---
 
-// Base de données interne
 const gossipDatabase = {
     "STT-ECLIPSE": { id: 1, text: "La baronne n'était pas au gala ce soir-là...", user: "TeaLover212" },
     "STT-GOLDEN": { id: 2, text: "Elle a été vue près des serres avec un inconnu.", user: "MysteryHunter" },
@@ -255,14 +254,15 @@ const gossipDatabase = {
     "STT-VOODOO": { id: 8, text: "La tasse de thé sur le bureau était encore brûlante.", user: "MasterBrewer" }
 };
 
-// FORCE l'accès global pour le bouton HTML
+// On déclare la fonction directement sur window pour être sûr à 100%
 window.checkCode = function() {
-    console.log("Tentative d'infusion du code..."); // Pour vérifier dans la console
+    console.log("Bouton cliqué ! Recherche du code..."); // Si tu vois ça dans la console, ça marche !
+    
     const input = document.getElementById('secret-code');
     const feedback = document.getElementById('feedback-msg');
     
     if (!input) {
-        console.error("Erreur : L'élément 'secret-code' est introuvable dans le HTML.");
+        alert("Erreur: L'input 'secret-code' est introuvable dans le HTML");
         return;
     }
 
@@ -271,59 +271,27 @@ window.checkCode = function() {
 
     if (data) {
         const card = document.getElementById(`frag-${data.id}`);
-        
-        if (card && card.classList.contains('locked')) {
-            // Révélation
+        if (card) {
             card.classList.remove('locked');
             card.classList.add('revealed');
-            card.querySelector('.fragment-text').innerText = `"${data.text}"`;
             
-            const userTag = document.createElement('span');
-            userTag.style = "font-size: 0.6rem; color: var(--accent-gold); margin-top: 10px; display: block;";
-            userTag.innerText = `Révélé par ${data.user}`;
-            card.appendChild(userTag);
+            const textElement = card.querySelector('.fragment-text');
+            if (textElement) textElement.innerText = `"${data.text}"`;
 
-            // Notification via ton Toast existant
-            let toast = document.getElementById('luxury-toast');
-            if (toast) {
-                toast.innerText = "Fragment infusé ! La vérité progresse.";
-                toast.classList.add('show');
-                setTimeout(() => toast.classList.remove('show'), 3000);
-            }
-
-            feedback.innerText = "Code accepté. Le secret s'infuse...";
+            feedback.innerText = "Fragment révélé avec succès !";
             feedback.style.color = "#27ae60";
-            updateGossipProgress();
-        } else {
-            feedback.innerText = "Ce fragment est déjà connu de la communauté.";
-            feedback.style.color = "orange";
+            
+            // Mise à jour de la barre
+            const revealedCount = document.querySelectorAll('.fragment-card.revealed').length;
+            const bar = document.getElementById('progress-bar');
+            if (bar) bar.style.width = (revealedCount / 8 * 100) + "%";
+            
+            const progText = document.getElementById('progress-text');
+            if (progText) progText.innerText = revealedCount + " / 8 fragments infusés";
         }
     } else {
-        feedback.innerText = "Code invalide. Essayez STT-ECLIPSE pour tester.";
+        feedback.innerText = "Code incorrect. Essayez STT-ECLIPSE";
         feedback.style.color = "#ff4d4d";
     }
-    input.value = ''; 
+    input.value = "";
 };
-
-function updateGossipProgress() {
-    const revealedCount = document.querySelectorAll('.fragment-card.revealed').length;
-    const progressPercent = (revealedCount / 8) * 100;
-
-    const bar = document.getElementById('progress-bar');
-    const text = document.getElementById('progress-text');
-    
-    if (bar) bar.style.width = `${progressPercent}%`;
-    if (text) text.innerText = `${revealedCount} / 8 fragments infusés`;
-
-    if (revealedCount === 8) {
-        const revealArea = document.getElementById('reveal-area');
-        if (revealArea) {
-            revealArea.innerHTML = `
-                <div style="animation: fadeInUp 1s ease-out; padding: 20px;">
-                    <span class="badge-brewed">✓ GOSSIP FULLY BREWED</span>
-                    <h2 class="luxury-serif">Vérité Révélée</h2>
-                    <p>Le mystère de l'Héritage Interdit a été résolu.</p>
-                </div>`;
-        }
-    }
-}
