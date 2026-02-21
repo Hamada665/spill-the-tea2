@@ -6,7 +6,6 @@
     <title>Gossip Room | Spill The Tea</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    
 </head>
 <body>
 
@@ -28,46 +27,71 @@
         </nav>
 
         <div class="header-actions">
-            <button id="theme-switch" class="btn-luxe" style="padding: 8px 20px; font-size: 0.7rem;">🌓 Mode</button>
+            <div class="cart-icon-container" onclick="window.location.href='panier.html'">
+                <span id="cart-count">0</span>
+                <img src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png" alt="Panier" class="cart-icon-img">
+            </div>
         </div>
-
-        <div class="cart-icon-container" onclick="window.location.href='panier.html'">
-    <span id="cart-count">0</span>
-    <img src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png" alt="Panier" class="cart-icon-img">
-</div>
     </header>
 
-    <main>
-        <section class="gossip-header">
-            <h1>La Chambre des Secrets</h1>
-            <p>Chaque indice est un murmure du passé. Assemblez les fragments, déchiffrez les mystères pour révéler la Vérité cachée au-delà du voile.</p>
+    <main class="gossip-page">
+        <section class="gossip-hero">
+            <h1 class="luxury-serif">The Gossip Room</h1>
+            <p class="subtitle-gold">Chaque gorgée détient un secret.</p>
+            <p class="gossip-description">
+                Scannez vos écrins • Révélez les fragments • Collaborez pour infuser la vérité.
+            </p>
         </section>
 
-        <section class="puzzle-area">
-            <div class="puzzle-grid">
-                </div>
+        <section class="active-gossip-area">
+            <div class="gossip-header-info">
+                <h2 class="luxury-serif">Gossip #01 – L'Héritage Interdit</h2>
+                <span id="progress-text">0 / 8 fragments infusés</span>
+            </div>
             
-            <div class="secret-reveal-box">
-                <h2 class="luxury-serif">Le Secret Révélé</h2>
-                <p id="secret-text-display" class="secret-text typed-text"></p>
+            <div class="progress-container">
+                <div id="progress-bar" class="progress-bar"></div>
+            </div>
+
+            <div class="fragment-grid" id="fragment-grid">
+                <div class="fragment-card locked" id="frag-1"><div class="lock-icon">🔒</div><p class="fragment-text">???</p></div>
+                <div class="fragment-card locked" id="frag-2"><div class="lock-icon">🔒</div><p class="fragment-text">???</p></div>
+                <div class="fragment-card locked" id="frag-3"><div class="lock-icon">🔒</div><p class="fragment-text">???</p></div>
+                <div class="fragment-card locked" id="frag-4"><div class="lock-icon">🔒</div><p class="fragment-text">???</p></div>
+                <div class="fragment-card locked" id="frag-5"><div class="lock-icon">🔒</div><p class="fragment-text">???</p></div>
+                <div class="fragment-card locked" id="frag-6"><div class="lock-icon">🔒</div><p class="fragment-text">???</p></div>
+                <div class="fragment-card locked" id="frag-7"><div class="lock-icon">🔒</div><p class="fragment-text">???</p></div>
+                <div class="fragment-card locked" id="frag-8"><div class="lock-icon">🔒</div><p class="fragment-text">???</p></div>
+            </div>
+
+            <div class="reveal-system" id="reveal-area">
+                <h3 class="luxury-serif">Révéler un fragment</h3>
+                <div class="input-group">
+                    <input type="text" id="secret-code" placeholder="Entrez le code secret (Ex: STT-XXXX)">
+                    <button class="btn-luxe" onclick="checkCode()">Infuser</button>
+                </div>
+                <p id="feedback-msg"></p>
+            </div>
+        </section>
+
+        <section class="archive-section">
+            <h2 class="luxury-serif">Histoires Entièrement Infusées</h2>
+            <div class="archive-grid">
+                <div class="archive-card">
+                    <span class="badge-brewed">Fully Brewed</span>
+                    <h4 class="luxury-serif">Gossip #00 – La Stagiaire de Minuit</h4>
+                    <p>Tout le monde pensait qu'elle rangeait les dossiers...</p>
+                    <button class="btn-luxe-small">Lire le secret</button>
+                </div>
             </div>
         </section>
     </main>
 
-    <a href="https://wa.me/212643668382" class="whatsapp-float" target="_blank">
-        <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.503-2.961-2.617-.087-.114-.708-.941-.708-1.792s.448-1.27.607-1.446c.159-.176.347-.22.463-.22s.231.001.332.005c.109.004.258-.041.402.304.144.347.491 1.2.534 1.289.043.089.072.191.014.304-.058.114-.087.191-.173.29-.087.099-.188.22-.268.297-.08.077-.164.159-.071.32.094.16.416.689.893 1.112.613.544 1.13.713 1.291.791.16.078.254.065.35-.045.094-.109.405-.471.514-.63.107-.16.216-.137.363-.083.144.054.915.432 1.073.51.159.078.265.117.304.183.039.067.039.387-.105.792z"/>
-        </svg>
-    </a>
-
     <footer class="luxury-serif">
         <div class="footer-logo">Spill The Tea</div>
-        <p style="font-family: 'Poppins'; font-weight: 300; font-size: 0.8rem; color: var(--text-muted);">
-            © 2026 DROITS RÉSERVÉS. L'ABUS DE MYSTÈRE EST RECOMMANDÉ.
-        </p>
+        <p>© 2026 - ACADEMIC PROTOTYPE</p>
     </footer>
 
     <script src="script.js"></script>
-
 </body>
 </html>
