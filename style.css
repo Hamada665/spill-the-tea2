@@ -837,3 +837,47 @@ footer {
     justify-content: space-between; /* Aligne les boutons en bas, peu importe la longueur du texte */
     height: 100%;
 }
+
+/* ==========================================================================
+   FIX ALIGNEMENT GLOBAL (Images & Cartes)
+   ========================================================================== */
+
+/* 1. Force toutes les images de produits/archives à la même taille */
+.product-card img, 
+.archive-card img, 
+.box-card img,
+.product-img {
+    width: 100% !important;
+    height: 280px !important; /* Hauteur fixe pour tout le monde */
+    object-fit: cover !important; /* L'image remplit le cadre sans se déformer */
+    display: block !important;
+    border-radius: 8px !important;
+    margin-bottom: 1.5rem !important;
+}
+
+/* 2. Aligne les grilles pour que les cartes fassent la même hauteur sur une ligne */
+.product-grid, 
+.archive-grid, 
+.box-selection-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+    gap: 30px !important;
+    align-items: stretch !important; /* Force les cartes à s'étirer à la même hauteur */
+}
+
+/* 3. Force le contenu interne des cartes à se répartir proprement */
+.product-card, 
+.archive-card, 
+.box-card {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important; /* Aligne tout vers le haut */
+    height: 100% !important;
+}
+
+/* 4. Force les boutons à s'aligner tout en bas si le texte est court */
+.product-card .btn-luxe, 
+.archive-card .btn-luxe-small, 
+.box-card .btn-luxe {
+    margin-top: auto !important;
+}
