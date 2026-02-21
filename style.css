@@ -881,3 +881,71 @@ footer {
 .box-card .btn-luxe {
     margin-top: auto !important;
 }
+
+/* ==========================================================================
+   SECTION GAGNANTS - ÉDITION LIMITÉE (Layout 2 colonnes)
+   ========================================================================== */
+
+.winner-flex-wrapper {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.winners-column {
+    flex: 1.2; /* Donne un peu plus de place aux noms */
+}
+
+/* On réutilise tes styles existants pour la liste mais en colonne simple */
+.winners-list-alt {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    list-style: none;
+    padding: 0;
+}
+
+.limited-edition-card {
+    flex: 1;
+    background: var(--secondary-bg);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--card-radius);
+    padding: 40px 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    transition: var(--transition-luxe);
+}
+
+.limited-edition-card:hover {
+    border-color: var(--accent-gold-light);
+    transform: translateY(-5px);
+}
+
+.gift-image {
+    width: 100% !important; /* Force la taille */
+    height: auto !important; /* Garde les proportions */
+    max-width: 250px !important;
+    margin: 20px auto !important;
+    filter: drop-shadow(0 15px 20px rgba(0,0,0,0.6));
+    object-fit: contain !important; /* Important pour ne pas couper le sachet */
+}
+
+.limited-info {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-top: 15px;
+}
+
+/* Fix pour mobile */
+@media (max-width: 850px) {
+    .winner-flex-wrapper {
+        flex-direction: column;
+    }
+    .limited-edition-card {
+        width: 100%;
+        order: -1; /* Met l'image au-dessus des noms sur téléphone */
+    }
+}
