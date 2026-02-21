@@ -574,30 +574,29 @@ footer {
     backdrop-filter: blur(8px);
 }
 
+/* Remplace ou complète ton .modal-content */
 .modal-content {
     background: var(--primary-bg);
-    margin: 5% auto;
+    margin: 50px auto; /* Un peu plus d'espace en haut */
     padding: 30px;
-    width: 90%;
-    max-width: 600px;
+    width: 95%;
+    max-width: 500px;
     border: 1px solid var(--accent-gold);
     border-radius: var(--card-radius);
-    max-height: 80vh;
+    max-height: 85vh; /* Légèrement plus grand */
     overflow-y: auto;
+    position: relative;
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
 }
 
-.tea-selection-grid {
-    display: grid;
-    gap: 15px;
-    margin: 20px 0;
+/* Style spécifique pour les lignes de thés dans la modale */
+.tea-item-select {
+    transition: background 0.3s ease;
+    border-radius: 8px;
 }
 
-.tea-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid var(--border-color);
+.tea-item-select:hover {
+    background: rgba(212, 175, 110, 0.05); /* Effet de survol discret */
 }
 
 .qty-controls {
@@ -607,12 +606,23 @@ footer {
 }
 
 .qty-btn {
-    background: var(--accent-gold);
-    border: none;
-    width: 25px;
-    height: 25px;
-    cursor: pointer;
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    border: 1px solid var(--accent-gold) !important;
+    background: transparent !important;
+    color: var(--accent-gold) !important;
     font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-luxe);
+}
+
+.qty-btn:hover {
+    background: var(--accent-gold) !important;
+    color: var(--primary-bg) !important;
 }
 
 .fictive-card input {
@@ -641,7 +651,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
+    z-index: 1500;
     cursor: pointer;
     box-shadow: 0 10px 25px rgba(0,0,0,0.3);
     transition: transform 0.3s ease;
