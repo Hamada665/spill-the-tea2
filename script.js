@@ -17,51 +17,57 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     updateBadge();
 
-   // --- 3. EXPOSER LES FONCTIONS AU HTML ---
-window.addToCart = (name, price) => {
-    let cart = JSON.parse(localStorage.getItem('stt_cart')) || [];
-    cart.push({ name, price });
-    localStorage.setItem('stt_cart', JSON.stringify(cart));
-    
-    // Mise à jour du badge
-    const badge = document.getElementById('cart-count');
-    if (badge) badge.innerText = cart.length;
+    // --- 3. EXPOSER LES FONCTIONS AU HTML ---
+    window.addToCart = (name, price) => {
+        let cart = JSON.parse(localStorage.getItem('stt_cart')) || [];
+        cart.push({ name, price });
+        localStorage.setItem('stt_cart', JSON.stringify(cart));
+        updateBadge();
 
-    // --- SYSTÈME DE NOTIFICATION LUXE ---
-    // On crée l'élément s'il n'existe pas
-    let toast = document.getElementById('luxury-toast');
-    if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'luxury-toast';
-        toast.className = 'toast-notification';
-        document.body.appendChild(toast);
-    }
+        let toast = document.getElementById('luxury-toast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'luxury-toast';
+            toast.className = 'toast-notification';
+            document.body.appendChild(toast);
+        }
+        toast.innerText = `${name} a rejoint votre collection.`;
+        toast.classList.add('show');
+        setTimeout(() => { toast.classList.remove('show'); }, 3000);
+    };
 
-    // On change le texte et on affiche
-    toast.innerText = `${name} a rejoint votre collection.`;
-    toast.classList.add('show');
+    // --- 5. SYSTÈME DE RÉVÉLATION (DÉPLACÉ ICI) ---
+    const revealElements = () => {
+        const reveals = document.querySelectorAll('.reveal');
+        reveals.forEach(el => {
+            const windowHeight = window.innerHeight;
+            const revealTop = el.getBoundingClientRect().top;
+            const revealPoint = 100; 
+            if (revealTop < windowHeight - revealPoint) {
+                el.classList.add('active');
+            }
+        });
+    };
 
-    // On cache après 3 secondes
-    setTimeout(() => {
-        toast.classList.remove('show');
-    }, 3000);
-};
+    window.addEventListener('scroll', revealElements);
+    revealElements(); // On l'exécute une fois au départ
+}); // <--- ICI on ferme le DOMContentLoaded
 
-// --- 4. DONNÉES DE L'HERBIER (Tes 12 Thés) ---
+// --- 4. DONNÉES ET MODALES (Peuvent rester dehors car attachées à window) ---
 const teaData = {
-    'oolong': { title: "Eclipse Oolong", history: "Un thé semi-fermenté aux notes de terre humide et de mystère.", benefits: "Améliore la concentration et booste le métabolisme." },
-    'chai': { title: "Golden Chai", history: "Un mélange d'épices ancestrales utilisé pour réchauffer les cœurs solitaires.", benefits: "Anti-inflammatoire et tonifiant naturel." },
-    'hibiscus': {title: "Crimson Hibisus",history: "Une infusion écarlate dont la recette fut dérobée dans les jardins suspendus d'une cité oubliée. Sa couleur rouge sang n'est pas une coïncidence : elle représente la passion et les serments que l'on ne peut briser.",benefits: "Infusion tonifiante, riche en vitamine C et idéale pour réguler la tension." },
-    'jasmine': { title: "Golden Jasmine", history: "Des fleurs de jasmin cueillies à la main sous le premier croissant de lune.", benefits: "Réduit le stress et apaise l'esprit." },
-    'blacktea': { title: "Imperial Black Tea", history: "Le thé des empereurs, sombre comme une nuit sans étoiles.", benefits: "Énergie durable et clarté mentale." },
-    'midjasmine': { title: "Midnight Jasmine", history: "Une variante plus intense du jasmin pour les confidences nocturnes.", benefits: "Aide à la relaxation profonde." },
-    'rooibos': { title: "Mystic Rooibos", history: "Une infusion rouge sans théine provenant des montagnes lointaines.", benefits: "Riche en minéraux et parfait pour le sommeil." },
-    'blueberry': { title: "Royal Blueberry", history: "Des baies sauvages infusées pour un goût royal et sucré.", benefits: "Puissant antioxydant pour la peau." },
-    'chamomile': { title: "Sacred Chamomile", history: "Utilisée depuis des millénaires pour sceller la paix intérieure.", benefits: "Remède naturel contre l'insomnie." },
-    'mint': { title: "Velvet Mint", history: "Une menthe douce qui laisse un voile de fraîcheur aristocratique.", benefits: "Facilite la digestion après un festin." },
-    'jade': { title: "Verdant Jade", history: "Le thé vert le plus pur, symbole de renouveau et de vitalité.", benefits: "Détoxifie l'organisme en profondeur." },
-    'masala': { title: "Voodoo Masala", history: "Un thé épicé aux pouvoirs envoûtants et au caractère de feu.", benefits: "Réveille les sens et combat la fatigue." },
-    'peach': { title: "Velvet Peach", history: "La douceur de la pêche mariée à la délicatesse des feuilles de thé.", benefits: "Hydratant et riche en vitamines." }
+    'oolong': { title: "Eclipse Oolong", history: "Un thé semi-fermenté aux notes de terre humide.", benefits: "Améliore la concentration." },
+    'chai': { title: "Golden Chai", history: "Un mélange d'épices ancestrales.", benefits: "Anti-inflammatoire." },
+    'hibiscus': { title: "Crimson Hibiscus", history: "Une infusion écarlate passionnée.", benefits: "Riche en vitamine C." },
+    'jasmine': { title: "Golden Jasmine", history: "Fleurs de jasmin cueillies à la lune.", benefits: "Apaise l'esprit." },
+    'blacktea': { title: "Imperial Black Tea", history: "Sombre comme une nuit sans étoiles.", benefits: "Énergie durable." },
+    'midjasmine': { title: "Midnight Jasmine", history: "Confidences nocturnes.", benefits: "Relaxation profonde." },
+    'rooibos': { title: "Mystic Rooibos", history: "Infusion rouge des montagnes.", benefits: "Parfait pour le sommeil." },
+    'blueberry': { title: "Royal Blueberry", history: "Baies sauvages pour un goût royal.", benefits: "Antioxydant." },
+    'chamomile': { title: "Sacred Chamomile", history: "Paix intérieure millénaire.", benefits: "Contre l'insomnie." },
+    'mint': { title: "Velvet Mint", history: "Fraîcheur aristocratique.", benefits: "Facilite la digestion." },
+    'jade': { title: "Verdant Jade", history: "Symbole de renouveau.", benefits: "Vitalité." },
+    'masala': { title: "Voodoo Masala", history: "Caractère de feu.", benefits: "Combat la fatigue." },
+    'peach': { title: "Velvet Peach", history: "Douceur de la pêche.", benefits: "Hydratant." }
 };
 
 window.openTea = function(key) {
@@ -79,21 +85,3 @@ window.closeTea = function() {
     const modal = document.getElementById('tea-modal');
     if (modal) modal.style.display = 'none';
 };
-
-// --- 5. SYSTÈME DE RÉVÉLATION AU SCROLL ---
-const revealElements = () => {
-    const reveals = document.querySelectorAll('.reveal');
-    reveals.forEach(el => {
-        const windowHeight = window.innerHeight;
-        const revealTop = el.getBoundingClientRect().top;
-        const revealPoint = 150; // Distance avant apparition
-
-        if (revealTop < windowHeight - revealPoint) {
-            el.classList.add('active');
-        }
-    });
-};
-
-// On lance la fonction au scroll et au chargement
-window.addEventListener('scroll', revealElements);
-revealElements();
