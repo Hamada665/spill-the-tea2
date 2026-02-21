@@ -146,45 +146,51 @@ window.closeTea = function() {
     if (modal) modal.style.display = 'none';
 };
 
-// --- 7. GESTION DES COFFRETS PERSONNALISÉS (VERSION MISE À JOUR) ---
+// --- 7. GESTION DES COFFRETS PERSONNALISÉS ---
+let currentBoxLimit = 0;
+let currentSelectionCount = 0;
+
 window.openBox = (boxName) => {
     const modal = document.getElementById('tea-modal');
     const selectionList = document.getElementById('tea-selection-list');
     
+    // Définir la limite selon la boîte choisie
+    currentBoxLimit = (boxName === 'Coffret Héritage') ? 40 : 30;
+    currentSelectionCount = 0;
+
     if (modal && selectionList) {
-        // 1. Mise à jour des textes
         document.getElementById('modal-title').innerText = "Personnaliser votre " + boxName;
-        document.getElementById('modal-history').innerText = "Composez votre assortiment (max 10 sachets).";
         
-        // 2. Vider la liste avant de la générer
+        // On affiche le compteur dynamique dans modal-history
+        document.getElementById('modal-history').innerHTML = 
+            `Remplissez votre écrin : <b id="box-counter">0</b> / ${currentBoxLimit} sachets`;
+        
+        // On vide la liste précédente
         selectionList.innerHTML = ''; 
 
-        // 3. Générer la liste des thés à partir de teaData (Section 6 de ton code)
+        // On génère les thés à partir de teaData
         Object.keys(teaData).forEach(key => {
             const tea = teaData[key];
             const teaRow = document.createElement('div');
-            teaRow.className = 'tea-item-select'; // On crée une ligne pour chaque thé
-            teaRow.style.display = 'flex';
-            teaRow.style.justifyContent = 'space-between';
-            teaRow.style.padding = '10px';
-            teaRow.style.borderBottom = '1px solid #333';
+            teaRow.style = "display:flex; justify-content:space-between; padding:12px; border-bottom:1px solid rgba(255,255,255,0.1); align-items:center;";
 
             teaRow.innerHTML = `
-                <span>${tea.title}</span>
-                <div style="display: flex; gap: 10px; align-items: center;">
-                    <button onclick="changeQty('${key}', -1)" style="width:25px; cursor:pointer;">-</button>
-                    <span id="qty-${key}">0</span>
-                    <button onclick="changeQty('${key}', 1)" style="width:25px; cursor:pointer;">+</button>
+                <span style="font-family:'Playfair Display'; color:var(--text-color);">${tea.title}</span>
+                <div style="display:flex; gap:15px; align-items:center;">
+                    <button onclick="changeQty('${key}', -1)" style="width:30px; height:30px; border-radius:50%; border:1px solid var(--accent-gold); background:none; color:var(--accent-gold); cursor:pointer;">-</button>
+                    <span id="qty-${key}" style="font-weight:bold; min-width:20px; text-align:center;">0</span>
+                    <button onclick="changeQty('${key}', 1)" style="width:30px; height:30px; border-radius:50%; background:var(--accent-gold); border:none; color:var(--primary-bg); cursor:pointer; font-weight:bold;">+</button>
                 </div>
             `;
             selectionList.appendChild(teaRow);
         });
 
-        // 4. Ajouter le bouton de validation
+        // Mise à jour de la zone de bouton
         const price = (boxName === 'Coffret Héritage') ? 250 : 120;
         document.getElementById('modal-benefits').innerHTML = `
-            <button class="btn-luxe" style="width:100%; margin-top:15px;" onclick="addToCart('${boxName}', ${price}); closeTea();">
-                Ajouter ce coffret (${price},00 DH)
+            <div id="limit-warning" style="color:#ff4d4d; font-size:0.9rem; margin-bottom:10px; display:none; text-align:center;">Limite de ${currentBoxLimit} sachets atteinte !</div>
+            <button id="pay-box-btn" class="btn-luxe" style="width:100%; padding:15px;" onclick="processBoxPayment('${boxName}', ${price})">
+                Payer le coffret (${price},00 DH)
             </button>
         `;
 
@@ -192,12 +198,45 @@ window.openBox = (boxName) => {
     }
 };
 
-// Fonctions utilitaires pour les boutons + et -
 window.changeQty = (key, delta) => {
     const qtySpan = document.getElementById(`qty-${key}`);
-    if (qtySpan) {
-        let currentQty = parseInt(qtySpan.innerText);
-        currentQty = Math.max(0, currentQty + delta); // Pas de négatif
-        qtySpan.innerText = currentQty;
+    const counterDisplay = document.getElementById('box-counter');
+    const warning = document.getElementById('limit-warning');
+    
+    let itemQty = parseInt(qtySpan.innerText);
+
+    // Blocage si limite atteinte
+    if (delta > 0 && currentSelectionCount >= currentBoxLimit) {
+        warning.style.display = 'block';
+        return;
     }
+
+    // Calcul de la nouvelle quantité
+    if (delta < 0 && itemQty > 0) {
+        itemQty--;
+        currentSelectionCount--;
+    } else if (delta > 0) {
+        itemQty++;
+        currentSelectionCount++;
+    }
+
+    // Affichage
+    qtySpan.innerText = itemQty;
+    counterDisplay.innerText = currentSelectionCount;
+    if (currentSelectionCount < currentBoxLimit) warning.style.display = 'none';
+};
+
+window.processBoxPayment = (name, price) => {
+    if (currentSelectionCount === 0) {
+        alert("Veuillez ajouter au moins un sachet à votre coffret.");
+        return;
+    }
+    // 1. Ajouter au panier
+    addToCart(name, price);
+    // 2. Fermer la sélection
+    closeTea();
+    // 3. Ouvrir le paiement
+    setTimeout(() => {
+        document.getElementById('payment-modal').style.display = 'flex';
+    }, 300);
 };
