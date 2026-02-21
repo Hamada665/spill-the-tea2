@@ -251,15 +251,7 @@ h1, h2, h3, .luxury-serif {
 }
 
 /* État Verrouillé */
-.fragment-card.locked {
-    filter: sepia(0.5) brightness(0.7);
-}
 
-.fragment-card.locked .fragment-text {
-    filter: blur(6px);
-    opacity: 0.2;
-    user-select: none;
-}
 
 .lock-icon {
     font-size: 1.5rem;
@@ -948,4 +940,42 @@ footer {
         width: 100%;
         order: -1; /* Met l'image au-dessus des noms sur téléphone */
     }
+}
+
+/* ==========================================================================
+   ULTIMATE LUXE ALIGNMENT & STYLE
+   ========================================================================== */
+
+/* 1. On enlève le filtre sombre et on force la clarté */
+.fragment-card.locked, 
+.fragment-card {
+    filter: none !important;
+    opacity: 1 !important;
+}
+
+/* 2. On applique le cadre doré épais (2px) et l'ombre portée */
+.archive-card, 
+.fragment-card, 
+.product-card,
+.limited-edition-card {
+    border: 2px solid var(--accent-gold) !important; /* Cadre doré identique partout */
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4) !important;
+    background: var(--secondary-bg) !important;
+    overflow: hidden; /* Coupe l'image pour qu'elle suive les bords arrondis */
+}
+
+/* 3. On uniformise la taille des images dans les cartes Gossip */
+.fragment-card img,
+.archive-card img {
+    width: 100% !important;
+    height: 250px !important; /* Hauteur fixe pour l'alignement */
+    object-fit: cover !important;
+    border-bottom: 1px solid var(--border-color) !important;
+}
+
+/* 4. On garde le texte flouté SEULEMENT si tu veux garder le côté mystère */
+/* Si tu veux que le texte soit lisible direct, supprime cette règle aussi */
+.fragment-card.locked .fragment-text {
+    filter: blur(5px); 
+    opacity: 0.5;
 }
