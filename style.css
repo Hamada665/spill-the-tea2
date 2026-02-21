@@ -814,3 +814,26 @@ footer {
     background: var(--accent-gold-light);
     box-shadow: 0 0 30px var(--accent-gold);
 }
+
+/* 1. Aligner les images des cartes */
+.archive-card img, .tea-card img, .herb-card img {
+    width: 100%;       /* Prend toute la largeur */
+    height: 250px;     /* FORCE une hauteur fixe (ajuste selon tes besoins) */
+    object-fit: cover; /* COUPE l'image proprement pour qu'elle ne soit pas écrasée */
+    border-radius: 8px 8px 0 0; /* Arrondit seulement le haut */
+}
+
+/* 2. Aligner les cartes elles-mêmes (si elles font des tailles différentes) */
+.archive-grid, .archive-card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    align-items: stretch; /* Force les cartes d'une même ligne à avoir la même hauteur */
+}
+
+.archive-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Aligne les boutons en bas, peu importe la longueur du texte */
+    height: 100%;
+}
