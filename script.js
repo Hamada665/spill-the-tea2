@@ -254,24 +254,18 @@ const gossipDatabase = {
     "STT-VOODOO": { id: 8, text: "La tasse de thé sur le bureau était encore brûlante.", user: "MasterBrewer" }
 };
 
-// On déclare la fonction directement sur window pour être sûr à 100%
 window.checkCode = function() {
-    console.log("Bouton cliqué ! Recherche du code..."); // Si tu vois ça dans la console, ça marche !
-    
     const input = document.getElementById('secret-code');
     const feedback = document.getElementById('feedback-msg');
     
-    if (!input) {
-        alert("Erreur: L'input 'secret-code' est introuvable dans le HTML");
-        return;
-    }
+    if (!input) return;
 
     const code = input.value.trim().toUpperCase();
     const data = gossipDatabase[code];
 
     if (data) {
         const card = document.getElementById(`frag-${data.id}`);
-        if (card) {
+        if (card && card.classList.contains('locked')) {
             card.classList.remove('locked');
             card.classList.add('revealed');
             
@@ -281,17 +275,58 @@ window.checkCode = function() {
             feedback.innerText = "Fragment révélé avec succès !";
             feedback.style.color = "#27ae60";
             
-            // Mise à jour de la barre
-            const revealedCount = document.querySelectorAll('.fragment-card.revealed').length;
-            const bar = document.getElementById('progress-bar');
-            if (bar) bar.style.width = (revealedCount / 8 * 100) + "%";
-            
-            const progText = document.getElementById('progress-text');
-            if (progText) progText.innerText = revealedCount + " / 8 fragments infusés";
+            updateGossipProgress(); // On appelle la mise à jour
         }
     } else {
         feedback.innerText = "Code incorrect. Essayez STT-ECLIPSE";
         feedback.style.color = "#ff4d4d";
     }
     input.value = "";
+};
+
+// --- GESTION DE LA PROGRESSION ET RÉVÉLATION FINALE ---
+function updateGossipProgress() {
+    const revealedCount = document.querySelectorAll('.fragment-card.revealed').length;
+    const progressPercent = (revealedCount / 8) * 100;
+
+    const bar = document.getElementById('progress-bar');
+    const text = document.getElementById('progress-text');
+    
+    if (bar) bar.style.width = `${progressPercent}%`;
+    if (text) text.innerText = `${revealedCount} / 8 fragments infusés`;
+
+    // Si on arrive à 8/8, on affiche le bouton "SPILL THE TEA"
+    if (revealedCount === 8) {
+        const revealArea = document.getElementById('reveal-area');
+        if (revealArea) {
+            revealArea.innerHTML = `
+                <div style="animation: fadeInUp 1s ease-out; padding: 20px; text-align:center;">
+                    <button class="btn-luxe" id="final-reveal-btn" onclick="showFullStory()" 
+                            style="padding: 20px 50px; font-size: 1.2rem; box-shadow: 0 0 20px var(--accent-gold);">
+                        🔥 SPILL THE TEA
+                    </button>
+                </div>`;
+        }
+    }
+}
+
+// Fonction pour afficher l'histoire complète (15 lignes)
+window.showFullStory = function() {
+    const revealArea = document.getElementById('reveal-area');
+    
+    const fullStory = `
+        <div class="full-gossip-reveal" style="animation: fadeInUp 1.5s ease-out; text-align: left; line-height: 1.8; font-family: 'Playfair Display', serif; color: var(--text-main); background: rgba(0,0,0,0.4); padding: 40px; border-radius: 12px; border: 1px solid var(--accent-gold); max-width: 800px; margin: 0 auto;">
+            <h2 style="color: var(--accent-gold); text-align: center; margin-bottom: 25px; font-size: 2rem;">Le Testament de l'Ombre : La Vérité</h2>
+            <p>Tout a commencé sous la lune de sang, quand la Baronne a quitté le gala. Ce n'était pas pour une simple promenade, mais pour rejoindre l'intendant près des serres impériales. Ensemble, ils ont scellé un pacte sombre. Le flacon de poison retrouvé n'était qu'un leurre, une diversion pour masquer le véritable crime : la falsification du testament original.</p>
+            <p>À 23h04 précises, les caméras se sont éteintes, non pas par accident, mais par la main de l'héritier présumé qui craignait de perdre son titre. La lettre d'aveu, cachée derrière le portrait du patriarche, révèle que le fils légitime n'est pas celui que l'on croit. Le sang bleu cache parfois des secrets très noirs.</p>
+            <p>Alors que la tasse de thé fumait encore sur le bureau en acajou, le dernier soupir a été poussé dans un silence glacial. La trahison était totale, infusée dans chaque mot, chaque regard. Le domaine de Spill The Tea n'est pas seulement un empire de saveurs, c'est le gardien de ce secret millénaire. Vous avez désormais toutes les pièces du puzzle. La vérité est enfin servie, brûlante et amère.</p>
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn-luxe-small" onclick="location.reload()" style="opacity: 0.7;">Fermer les archives</button>
+            </div>
+        </div>
+    `;
+    
+    revealArea.innerHTML = fullStory;
+    // On scrolle doucement vers l'histoire pour être sûr que l'utilisateur la voie
+    revealArea.scrollIntoView({ behavior: 'smooth' });
 };
