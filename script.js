@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 2. GESTION DU PANIER (Badge) ---
+    // --- 2. GESTION DU BADGE PANIER ---
     const updateBadge = () => {
         const cart = JSON.parse(localStorage.getItem('stt_cart')) || [];
         const badge = document.getElementById('cart-count');
@@ -17,13 +17,14 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     updateBadge();
 
-    // --- 3. EXPOSER LES FONCTIONS AU HTML ---
+    // --- 3. FONCTION AJOUTER AU PANIER ---
     window.addToCart = (name, price) => {
         let cart = JSON.parse(localStorage.getItem('stt_cart')) || [];
         cart.push({ name, price });
         localStorage.setItem('stt_cart', JSON.stringify(cart));
         updateBadge();
 
+        // Notification Toast
         let toast = document.getElementById('luxury-toast');
         if (!toast) {
             toast = document.createElement('div');
@@ -36,24 +37,83 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => { toast.classList.remove('show'); }, 3000);
     };
 
-    // --- 5. SYSTÈME DE RÉVÉLATION (DÉPLACÉ ICI) ---
+    // --- 4. RÉVÉLATION AU SCROLL ---
     const revealElements = () => {
         const reveals = document.querySelectorAll('.reveal');
         reveals.forEach(el => {
             const windowHeight = window.innerHeight;
             const revealTop = el.getBoundingClientRect().top;
-            const revealPoint = 100; 
-            if (revealTop < windowHeight - revealPoint) {
+            if (revealTop < windowHeight - 100) {
                 el.classList.add('active');
             }
         });
     };
-
     window.addEventListener('scroll', revealElements);
-    revealElements(); // On l'exécute une fois au départ
-}); // <--- ICI on ferme le DOMContentLoaded
+    revealElements();
 
-// --- 4. DONNÉES ET MODALES (Peuvent rester dehors car attachées à window) ---
+    // --- 5. MOTEUR DU PANIER (NOUVEAU) ---
+    const renderCart = () => {
+        const cartContainer = document.getElementById('cart-items-list');
+        const emptyMsg = document.getElementById('cart-empty-msg');
+        const summary = document.getElementById('cart-summary');
+        const totalPriceEl = document.getElementById('cart-total-price');
+
+        if (!cartContainer) return; 
+
+        const cart = JSON.parse(localStorage.getItem('stt_cart')) || [];
+
+        if (cart.length === 0) {
+            emptyMsg.style.display = 'block';
+            summary.style.display = 'none';
+            cartContainer.innerHTML = '';
+            return;
+        }
+
+        emptyMsg.style.display = 'none';
+        summary.style.display = 'block';
+
+        let total = 0;
+        cartContainer.innerHTML = ''; 
+
+        cart.forEach((item, index) => {
+            total += item.price;
+            const div = document.createElement('div');
+            div.className = 'tea-item'; 
+            div.innerHTML = `
+                <div style="text-align: left;">
+                    <strong class="luxury-serif" style="color: var(--accent-gold);">${item.name}</strong>
+                    <p style="font-size: 0.8rem; color: var(--text-muted);">${item.price},00 DH</p>
+                </div>
+                <button onclick="removeFromCart(${index})" style="background:none; border:none; color:#ff4d4d; cursor:pointer; font-size:0.8rem; font-family:'Poppins';">Supprimer</button>
+            `;
+            cartContainer.appendChild(div);
+        });
+
+        totalPriceEl.innerText = total;
+    };
+
+    // Charger le panier si on est sur la page panier
+    renderCart();
+
+    // Fonction supprimer (accessible globalement)
+    window.removeFromCart = (index) => {
+        let cart = JSON.parse(localStorage.getItem('stt_cart')) || [];
+        cart.splice(index, 1);
+        localStorage.setItem('stt_cart', JSON.stringify(cart));
+        renderCart();
+        updateBadge();
+    };
+
+    // Bouton de paiement final
+    const checkoutBtn = document.getElementById('btn-checkout-final');
+    if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', () => {
+            document.getElementById('payment-modal').style.display = 'flex';
+        });
+    }
+});
+
+// --- 6. DONNÉES DE L'HERBIER (Hors du DOMContent pour les boutons onclick) ---
 const teaData = {
     'oolong': { title: "Eclipse Oolong", history: "Un thé semi-fermenté aux notes de terre humide.", benefits: "Améliore la concentration." },
     'chai': { title: "Golden Chai", history: "Un mélange d'épices ancestrales.", benefits: "Anti-inflammatoire." },
