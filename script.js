@@ -150,6 +150,7 @@ const blogData = {
     2: {
         title: "Ce que votre tasse dit de vos secrets",
         content: `
+            <p style="color:var(--accent-gold); font-weight:bold; margin-bottom:15px; letter-spacing:1px;">LECTURE DES FEUILLES</p>
             <p>Une femme qui boit son thé sans sucre cache souvent une vérité amère. Le thé blanc, quant à lui, est le secret des nuits de complots : riche en antioxydants, il efface les cernes des plus grandes stratèges.</p>
             <p style="margin-top:15px;">Apprenez à lire dans les feuilles de thé de vos rivales. Une feuille qui flotte verticalement ? Une visite inattendue. Trois feuilles au fond ? Une trahison imminente. Restez radieuse, même dans le mystère.</p>
         `
@@ -157,11 +158,12 @@ const blogData = {
     3: {
         title: "Comment les indices sont-ils cachés ?",
         content: `
+            <p style="color:var(--accent-gold); font-weight:bold; margin-bottom:15px; letter-spacing:1px;">LES ARCHIVES SECRÈTES</p>
             <p>Dans nos ateliers, la discrétion est la règle d'or. Chaque boîte de thé "Spill The Tea" contient un compartiment secret que seuls les plus observateurs trouveront.</p>
             <p style="margin-top:15px;">Nos artisans utilisent une encre invisible qui ne se révèle qu'à la chaleur de la vapeur de votre tasse. C'est ainsi que nous scellons les potins les plus brûlants de la haute société. Ne jetez jamais votre emballage avant d'avoir tout exploré.</p>
         `
     }
-};
+};};
 
 // --- 6. DONNÉES DE L'HERBIER (Hors du DOMContent pour les boutons onclick) ---
 const teaData = {
