@@ -137,6 +137,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 }); // <--- BIEN VÉRIFIER QUE CETTE ACCOLADE FERME LE DOMContentLoaded
 
+// --- 5.5 DONNÉES DE LA GAZETTE (BLOG) ---
+const blogData = {
+    1: {
+        title: "L'infusion était-elle empoisonnée ?",
+        content: `
+            <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80" style="width:100%; border-radius:15px; margin-bottom:20px;">
+            <p style="color:var(--accent-gold); font-weight:bold; margin-bottom:10px;">L'AFFAIRE DES CAVENDISH</p>
+            <p>Le soir du 14 février, la baronne Cavendish s'est effondrée après une seule gorgée de son thé noir préféré. Les enquêteurs ont trouvé des traces d'une herbe rare non répertoriée dans le sachet...</p>
+            <p style="margin-top:15px;">Était-ce un accident d'herboriste ou un acte prémédité ? Un fragment de son testament a été retrouvé brûlé dans la cheminée. Les membres de la Gossip Room qui possèdent la collection "Hiver Noir" ont déjà commencé à recouper les indices.</p>
+        `
+    },
+    2: {
+        title: "Ce que votre tasse dit de vos secrets",
+        content: `
+            <img src="https://images.unsplash.com/photo-1594631252845-29fc458681b7?auto=format&fit=crop&w=800&q=80" style="width:100%; border-radius:15px; margin-bottom:20px;">
+            <p>Une femme qui boit son thé sans sucre cache souvent une vérité amère. Le thé blanc, quant à lui, est le secret des nuits de complots : riche en antioxydants, il efface les cernes des plus grandes stratèges.</p>
+            <p style="margin-top:15px;">Apprenez à lire dans les feuilles de thé de vos rivales. Une feuille qui flotte verticalement ? Une visite inattendue. Trois feuilles au fond ? Une trahison imminente. Restez radieuse, même dans le mystère.</p>
+        `
+    },
+    3: {
+        title: "Comment les indices sont-ils cachés ?",
+        content: `
+            <img src="https://images.unsplash.com/photo-1582718393483-e40704930557?auto=format&fit=crop&w=800&q=80" style="width:100%; border-radius:15px; margin-bottom:20px;">
+            <p>Dans nos ateliers, la discrétion est la règle d'or. Chaque boîte de thé "Spill The Tea" contient un compartiment secret que seuls les plus observateurs trouveront.</p>
+            <p style="margin-top:15px;">Nos artisans utilisent une encre invisible qui ne se révèle qu'à la chaleur de la vapeur de votre tasse. C'est ainsi que nous scellons les potins les plus brûlants de la haute société. Ne jetez jamais votre emballage avant d'avoir tout exploré.</p>
+        `
+    }
+};
+
 // --- 6. DONNÉES DE L'HERBIER (Hors du DOMContent pour les boutons onclick) ---
 const teaData = {
     'oolong': { title: "Eclipse Oolong", history: "L'Eclipse Oolong est un thé de clair-obscur, né d'une oxydation partielle qui capture l'instant précis où le jour rencontre la nuit. Ses feuilles froissées racontent l'histoire des montagnes brumeuses du Fujian, où le thé est flétri sous la lumière argentée de la lune. On dit qu'il était servi lors des banquets secrets pour délier les langues et révéler les vérités cachées.", benefits: "Véritable élixir d'équilibre, ce Oolong est riche en polyphénols. Il stimule le métabolisme et favorise la clarté mentale, offrant l'énergie d'un thé noir et la douceur protectrice d'un thé vert. Parfait pour une concentration intense ou pour apaiser l'esprit après une journée agitée." },
@@ -366,3 +395,37 @@ window.closeAlert = () => {
         setTimeout(() => { modal.style.display = 'none'; }, 400);
     }
 };
+
+// --- 10. GESTION MODALE GAZETTE (BLOG) ---
+window.openBlog = function(id) {
+    const modal = document.getElementById('blog-modal');
+    const container = document.getElementById('modal-body-content');
+    const data = blogData[id];
+
+    if (modal && data) {
+        container.innerHTML = `
+            <h2 class="luxury-serif" style="font-size:2.2rem; color:var(--accent-gold); margin-bottom:20px;">${data.title}</h2>
+            <div style="line-height:1.8; font-family:'Poppins'; font-weight:300; color:var(--text-main);">${data.content}</div>
+        `;
+        modal.style.display = 'flex';
+        // Ajout d'un léger flou en arrière-plan pour le luxe
+        document.body.style.overflow = 'hidden'; // Empêche le scroll
+    }
+};
+
+// Fonction pour fermer la modale blog
+window.closeBlog = function() {
+    const modal = document.getElementById('blog-modal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto'; // Réactive le scroll
+    }
+};
+
+// Fermer si on clique en dehors du contenu
+window.addEventListener('click', (event) => {
+    const modal = document.getElementById('blog-modal');
+    if (event.target == modal) {
+        closeBlog();
+    }
+});
