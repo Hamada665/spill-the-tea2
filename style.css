@@ -1089,3 +1089,17 @@ footer {
 .confirm-content .btn-luxe {
     padding: 12px 30px;
 }
+
+.blog-card:hover {
+    background: rgba(212, 175, 110, 0.05);
+    border-color: var(--accent-gold) !important;
+    transform: translateY(-5px);
+}
+
+.blog-card h3 {
+    transition: 0.3s;
+}
+
+.blog-card:hover h3 {
+    color: var(--accent-gold);
+}
