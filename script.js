@@ -163,7 +163,7 @@ const blogData = {
             <p style="margin-top:15px;">Nos artisans utilisent une encre invisible qui ne se révèle qu'à la chaleur de la vapeur de votre tasse. C'est ainsi que nous scellons les potins les plus brûlants de la haute société. Ne jetez jamais votre emballage avant d'avoir tout exploré.</p>
         `
     }
-};};
+};
 
 // --- 6. DONNÉES DE L'HERBIER (Hors du DOMContent pour les boutons onclick) ---
 const teaData = {
