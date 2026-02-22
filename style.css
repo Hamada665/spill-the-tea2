@@ -1044,62 +1044,94 @@ footer {
     margin-bottom: 12px;
 }
 
-/* --- MODALE DE CONFIRMATION LUXE --- */
-.confirm-modal {
-    display: none;
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(8px);
-    z-index: 9999;
-    align-items: center;
-    justify-content: center;
+/* ==========================================================================
+   SECTION GAZETTE (ACCUEIL) - LOOK CURVED
+   ========================================================================== */
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    padding: 20px 0 60px;
 }
 
-.confirm-content {
+.blog-card {
     background: var(--secondary-bg);
-    border: 2px solid var(--accent-gold);
-    padding: 40px;
-    border-radius: var(--card-radius);
-    text-align: center;
-    max-width: 450px;
-    width: 90%;
-    transform: scale(0.7);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-}
-
-.confirm-modal.active .confirm-content {
-    transform: scale(1);
-}
-
-.confirm-content h2 {
-    color: var(--accent-gold);
-    font-family: 'Playfair Display', serif;
-    margin-bottom: 15px;
-    font-size: 1.8rem;
-}
-
-.confirm-content p {
-    color: var(--text-main);
-    margin-bottom: 25px;
-    font-style: italic;
-}
-
-.confirm-content .btn-luxe {
-    padding: 12px 30px;
+    border: 2px solid rgba(212, 175, 110, 0.2) !important; /* Cadre doré fin */
+    border-radius: 30px !important; /* Coins très arrondis (Curved) */
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .blog-card:hover {
-    background: rgba(212, 175, 110, 0.05);
+    transform: translateY(-10px);
     border-color: var(--accent-gold) !important;
-    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5) !important;
 }
 
-.blog-card h3 {
+.blog-image {
+    height: 220px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 30px 30px 0 0; /* Épouse l'arrondi du haut */
+    transition: transform 0.6s ease;
+}
+
+.blog-card:hover .blog-image {
+    transform: scale(1.05);
+}
+
+.blog-content {
+    padding: 25px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-meta {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent-gold);
+    margin-bottom: 12px;
+    display: block;
+}
+
+.blog-title {
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+    line-height: 1.3;
     transition: 0.3s;
 }
 
-.blog-card:hover h3 {
+.blog-card:hover .blog-title {
     color: var(--accent-gold);
+}
+
+.blog-excerpt {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    font-weight: 300;
+    line-height: 1.6;
+}
+
+.read-more-link {
+    margin-top: auto; /* Aligne le lien en bas */
+    text-decoration: none;
+    color: var(--accent-gold);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid transparent;
+    transition: 0.3s;
+}
+
+.read-more-link:hover {
+    border-bottom-color: var(--accent-gold);
+    padding-left: 5px; /* Petit effet de mouvement */
 }
