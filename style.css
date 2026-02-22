@@ -1135,3 +1135,9 @@ footer {
     border-bottom-color: var(--accent-gold);
     padding-left: 5px; /* Petit effet de mouvement */
 }
+
+.gazette-section {
+    background: rgba(0, 0, 0, 0.2) !important;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
