@@ -142,7 +142,7 @@ const blogData = {
     1: {
         title: "L'infusion était-elle empoisonnée ?",
         content: `
-            <img src=BLOG1_BLOGS.png" style="width:100%; border-radius:15px; margin-bottom:20px;">
+            <img src="BLOG1_BLOGS.png" style="width:100%; border-radius:15px; margin-bottom:20px;">
             <p style="color:var(--accent-gold); font-weight:bold; margin-bottom:10px;">L'AFFAIRE DES CAVENDISH</p>
             <p>Le soir du 14 février, la baronne Cavendish s'est effondrée après une seule gorgée de son thé noir préféré. Les enquêteurs ont trouvé des traces d'une herbe rare non répertoriée dans le sachet...</p>
             <p style="margin-top:15px;">Était-ce un accident d'herboriste ou un acte prémédité ? Un fragment de son testament a été retrouvé brûlé dans la cheminée. Les membres de la Gossip Room qui possèdent la collection "Hiver Noir" ont déjà commencé à recouper les indices.</p>
@@ -151,7 +151,7 @@ const blogData = {
     2: {
         title: "Ce que votre tasse dit de vos secrets",
         content: `
-            <img src=BLOG2_BLOG.jpg" style="width:100%; border-radius:15px; margin-bottom:20px;">
+            <img src="BLOG2_BLOG.jpg" style="width:100%; border-radius:15px; margin-bottom:20px;">
             <p>Une femme qui boit son thé sans sucre cache souvent une vérité amère. Le thé blanc, quant à lui, est le secret des nuits de complots : riche en antioxydants, il efface les cernes des plus grandes stratèges.</p>
             <p style="margin-top:15px;">Apprenez à lire dans les feuilles de thé de vos rivales. Une feuille qui flotte verticalement ? Une visite inattendue. Trois feuilles au fond ? Une trahison imminente. Restez radieuse, même dans le mystère.</p>
         `
@@ -159,7 +159,7 @@ const blogData = {
     3: {
         title: "Comment les indices sont-ils cachés ?",
         content: `
-            <img src=BLOG3_BLOGS.jpg" style="width:100%; border-radius:15px; margin-bottom:20px;">
+            <img src="BLOG3_BLOGS.jpg" style="width:100%; border-radius:15px; margin-bottom:20px;">
             <p>Dans nos ateliers, la discrétion est la règle d'or. Chaque boîte de thé "Spill The Tea" contient un compartiment secret que seuls les plus observateurs trouveront.</p>
             <p style="margin-top:15px;">Nos artisans utilisent une encre invisible qui ne se révèle qu'à la chaleur de la vapeur de votre tasse. C'est ainsi que nous scellons les potins les plus brûlants de la haute société. Ne jetez jamais votre emballage avant d'avoir tout exploré.</p>
         `
