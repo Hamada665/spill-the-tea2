@@ -51,67 +51,91 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', revealElements);
     revealElements();
 
-    // --- 5. MOTEUR DU PANIER (NOUVEAU) ---
-    const renderCart = () => {
+    // --- 5. MOTEUR DU PANIER ---
+
+// --- 5. MOTEUR DU PANIER ---
+    window.renderCart = () => {
         const cartContainer = document.getElementById('cart-items-list');
         const emptyMsg = document.getElementById('cart-empty-msg');
         const summary = document.getElementById('cart-summary');
         const totalPriceEl = document.getElementById('cart-total-price');
 
-        if (!cartContainer) return; 
-
+        if (!cartContainer) return;
         const cart = JSON.parse(localStorage.getItem('stt_cart')) || [];
 
         if (cart.length === 0) {
-            emptyMsg.style.display = 'block';
-            summary.style.display = 'none';
+            if (emptyMsg) emptyMsg.style.display = 'block';
+            if (summary) summary.style.display = 'none';
             cartContainer.innerHTML = '';
             return;
         }
 
-        emptyMsg.style.display = 'none';
-        summary.style.display = 'block';
+        if (emptyMsg) emptyMsg.style.display = 'none';
+        if (summary) summary.style.display = 'block';
 
         let total = 0;
-        cartContainer.innerHTML = ''; 
-
+        cartContainer.innerHTML = '';
         cart.forEach((item, index) => {
             total += item.price;
             const div = document.createElement('div');
-            div.className = 'tea-item'; 
+            div.className = 'tea-item';
+            div.style = "display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; padding-bottom:10px; border-bottom:1px solid rgba(212,175,110,0.2);";
             div.innerHTML = `
                 <div style="text-align: left;">
                     <strong class="luxury-serif" style="color: var(--accent-gold);">${item.name}</strong>
-                    <p style="font-size: 0.8rem; color: var(--text-muted);">${item.price},00 DH</p>
+                    <p style="font-size: 0.8rem; margin:0;">${item.price},00 DH</p>
                 </div>
-                <button onclick="removeFromCart(${index})" style="background:none; border:none; color:#ff4d4d; cursor:pointer; font-size:0.8rem; font-family:'Poppins';">Supprimer</button>
+                <button onclick="removeFromCart(${index})" style="background:none; border:none; color:#ff4d4d; cursor:pointer; font-size:0.8rem;">Supprimer</button>
             `;
             cartContainer.appendChild(div);
         });
-
-        totalPriceEl.innerText = total;
+        if (totalPriceEl) totalPriceEl.innerText = total;
     };
 
-    // Charger le panier si on est sur la page panier
-    renderCart();
-
-    // Fonction supprimer (accessible globalement)
     window.removeFromCart = (index) => {
         let cart = JSON.parse(localStorage.getItem('stt_cart')) || [];
         cart.splice(index, 1);
         localStorage.setItem('stt_cart', JSON.stringify(cart));
-        renderCart();
+        window.renderCart();
         updateBadge();
     };
 
-    // Bouton de paiement final
+    // Lancer le rendu au chargement
+    window.renderCart();
+    
+    // Bouton de paiement final (C'EST ICI QUE ÇA CHANGE)
     const checkoutBtn = document.getElementById('btn-checkout-final');
     if (checkoutBtn) {
         checkoutBtn.addEventListener('click', () => {
-            document.getElementById('payment-modal').style.display = 'flex';
+            const paymentModal = document.getElementById('payment-modal');
+            if (paymentModal) {
+                paymentModal.style.display = 'flex';
+                
+                // On cible le bouton de confirmation DANS la modale de paiement
+                const confirmPaymentBtn = paymentModal.querySelector('.btn-luxe'); 
+                if (confirmPaymentBtn) {
+                    confirmPaymentBtn.onclick = (e) => {
+                        e.preventDefault(); 
+                        
+                        // 1. Fermer le formulaire de paiement
+                        paymentModal.style.display = 'none';
+                        
+                        // 2. Vider le panier
+                        localStorage.removeItem('stt_cart');
+                        updateBadge();
+                        if(typeof renderCart === "function") renderCart(); // Rafraîchit l'affichage du panier vide
+                        
+                        // 3. Afficher la superbe alerte de luxe
+                        showLuxuryAlert(
+                            "Demande Transmise", 
+                            "Votre sélection a été enregistrée avec discrétion. Nos agents vous contacteront sous 24h pour finaliser le rituel."
+                        );
+                    };
+                }
+            }
         });
     }
-});
+}); // <--- BIEN VÉRIFIER QUE CETTE ACCOLADE FERME LE DOMContentLoaded
 
 // --- 6. DONNÉES DE L'HERBIER (Hors du DOMContent pour les boutons onclick) ---
 const teaData = {
@@ -228,9 +252,9 @@ window.changeQty = (key, delta) => {
 
 window.processBoxPayment = (name, price) => {
     if (currentSelectionCount === 0) {
-        alert("Veuillez ajouter au moins un sachet à votre coffret.");
-        return;
-    }
+    showLuxuryAlert("Écrin Vide", "Veuillez choisir quelques secrets à glisser dans votre coffret avant de continuer.");
+    return;
+}
     // 1. Ajouter au panier
     addToCart(name, price);
     // 2. Fermer la sélection
@@ -318,4 +342,27 @@ window.showFullStory = function() {
         </div>
     `;
     revealArea.scrollIntoView({ behavior: 'smooth' });
+};
+
+// --- 9. SYSTÈME D'ALERTE DE LUXE ---
+window.showLuxuryAlert = (title, message) => {
+    const modal = document.getElementById('custom-alert');
+    const titleEl = document.getElementById('alert-title');
+    const msgEl = document.getElementById('alert-message');
+    
+    if (modal && titleEl && msgEl) {
+        titleEl.innerText = title;
+        msgEl.innerText = message;
+        modal.style.display = 'flex';
+        // Petit délai pour l'animation CSS
+        setTimeout(() => { modal.classList.add('active'); }, 10);
+    }
+};
+
+window.closeAlert = () => {
+    const modal = document.getElementById('custom-alert');
+    if (modal) {
+        modal.classList.remove('active');
+        setTimeout(() => { modal.style.display = 'none'; }, 400);
+    }
 };
